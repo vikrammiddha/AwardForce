@@ -10,8 +10,8 @@ require(__dirname + '/config/env.js')(express, app);
 require(__dirname + '/routes')(app);
 
 // Start the server
-app.set('port', process.env.PORT || 3000);
-http.createServer(app).listen('port', function () {
+var port = process.env.PORT || 3000;
+http.createServer(app).listen(port, function () {
     console.log("Express server listening on port %d in %s mode",
                 opts.port, app.settings.env);
 });
