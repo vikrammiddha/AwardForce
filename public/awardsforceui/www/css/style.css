@@ -1,4 +1,8 @@
 /* Empty. Add your own CSS if you like */
+.pagebackground{
+	background-color: bisque;
+}
+
 .winnerimage{
 	border: 1px;
 	border-radius: 10%;
