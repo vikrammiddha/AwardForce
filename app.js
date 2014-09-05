@@ -2,7 +2,7 @@ var express = require('express'),
     http = require('http'),
     app = express(),
     opts = require(__dirname + '/config/opts.js');
-
+app.use(express.static(__dirname + '/public/awardsforceui/www'));
 // Load express configuration
 require(__dirname + '/config/env.js')(express, app);
 

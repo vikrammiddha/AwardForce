@@ -1,1 +1,63 @@
 /* Empty. Add your own CSS if you like */
+.winnerimage{
+	border: 1px;
+	border-radius: 10%;
+	width: 30%;
+}
+
+.winner1image{
+	margin-left: 35%;
+	margin-top: 5%;
+}
+
+.winner2image{
+	width:75%;
+	margin-left: 17%;
+	margin-top: 5%;
+}
+
+.winner3image{
+	width: 61% !important;
+	margin-left: 5%;
+	margin-top: 5%;
+}
+
+.winnername1{
+	width: 30%;
+	font-size: 14px;
+	margin-left: 35%;
+	text-align: center;
+}
+
+.winnername2{
+	width: 75%;
+	text-align: center;
+	font-size: 14px;
+	margin-left: 17%;
+}
+
+.winnername3 {
+	width: 67%;
+	text-align: center;
+	font-size: 14px;
+	margin-left: 3%;
+}
+
+.firstmedal{
+	position: absolute;
+	width: 10%;
+	left: 60%;
+	top: 5%;
+}
+
+.secondmedal{
+	position: absolute;
+	width: 10%;
+	left: 42%;
+}
+
+.thirdmedal{
+	position: absolute;
+	width: 10%;
+	left: 78%;
+}
