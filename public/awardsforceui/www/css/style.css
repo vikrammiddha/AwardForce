@@ -54,6 +54,7 @@
 	position: absolute;
 	width: 7%;
 	left: 33%;
+	top: 51%;
 }
 
 .thirdmedal{
@@ -74,7 +75,7 @@
 .secondmedalnumber{
 	position: absolute;
 	left: 36%;
-	top: 53%;
+	top: 52%;
 	font-weight: bold;
 	color: crimson;
 }
