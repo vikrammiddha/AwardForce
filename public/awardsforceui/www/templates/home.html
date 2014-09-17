@@ -8,16 +8,16 @@
   -->
   <ion-content class="has-header pagebackground" >
   		
-  	<div>
+  	<div style="position:relative">
 
-	  	<div >
+	  	<div style="position:relative">
 	  		<img class="firstmedal" ng-src="../img/rank.png"/>
 	  		<span class="firstmedalnumber">1</span>
 	  		<img class="winnerimage winner1image" ng-src="../img/blank.png"/>
 	  		<span class="input-label winnername1">Vikas Malhotra</span>
 	  	</div>
 
-	  	<div >
+	  	<div style="position:relative">
 	  		<div style="display:inline-block; width:40%;margin-left: 10%;">
 	  			<img  class="secondmedal" ng-src="../img/rank.png"/>
 	  			<span class="secondmedalnumber">2</span>
@@ -35,6 +35,48 @@
 		</div>
 
   	<div>
+
+  	<div>
+
+  		<div ng-repeat="feed in Feeds" class="feedblock">
+  			<table width="100%">
+  				<tr>
+  					<td style="width:20%;height:62px;">
+  						<img class="feedimage" ng-src="../img/blank.png"/>
+  					</td>
+  					<td style="vertical-align: middle;width:70%">
+  						<div class="feedtitle"><b>{{feed.Giver}}</b> awarded <b>{{feed.Taker}}</b></div>
+  					</td>
+  				</tr>
+
+  				<tr>
+	  				<td  colspan="2">
+	  					<div class="feeddate">{{feed.Time}}</div>
+	  				</td>
+  				</tr>
+
+  				<tr>
+  					<td colspan="2">
+  						<div class="feeddescription">{{feed.Description}}</div>
+  					</td>
+  				</tr>
+
+  				<tr>
+  					<td colspan="2">
+  						<div class="feedlikesandcomments">{{feed.LikesCount}} Likes      {{feed.CommentsCount}} Comments</div>
+  					</td>
+  				</tr>
+
+  			</table>
+
+  			<div style="padding-left:1%">
+  				<button style="width:49%" class="button icon-left ion-ios7-star-outline">Like</button>
+  				<button style="width:49%" class="button icon-left ion-ios7-chatboxes-outline">Comment</button>
+  			</div>
+  			
+  		</div>
+
+  	</div>
 
   </ion-content>
 </ion-view>

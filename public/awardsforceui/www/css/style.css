@@ -51,27 +51,27 @@
 	position: absolute;
 	width: 7%;
 	left: 51%;
-	top: 5%;
+	top: 13%;
 }
 
 .secondmedal{
 	position: absolute;
 	width: 7%;
 	left: 33%;
-	top: 51%;
+	top: 5%;
 }
 
 .thirdmedal{
 	position: absolute;
 	width: 7%;
 	left: 70%;
-	top: 51%;
+	top: 5%;
 }
 
 .firstmedalnumber{
 	position: absolute;
 	left: 54%;
-	top: 6%;
+	top: 16%;
 	font-weight: bold;
 	color: crimson;
 }
@@ -79,7 +79,7 @@
 .secondmedalnumber{
 	position: absolute;
 	left: 36%;
-	top: 52%;
+	top: 9%;
 	font-weight: bold;
 	color: crimson;
 }
@@ -87,8 +87,41 @@
 .thirdmedalnumber{
 	position: absolute;
 	left: 73%;
-	top: 52%;
+	top: 9%;
 	font-weight: bold;
 	color: crimson;
 }
+
+.feedblock{
+	background-color: white;
+	margin-left: 3%;
+	margin-right: 3%;
+	margin-bottom: 3%;
+}
+
+.feedimage{
+	width:69%;
+	margin-left: 10%;
+	margin-top: 10%;
+}
+
+.feeddate{
+	text-align: end;
+	margin-right: 3%;
+	font-size: 11px;
+	color: gray;
+}
+
+.feeddescription{
+	margin-top: 4%;
+	margin-bottom: 4%;
+	margin-left: 3%;
+}
+
+.feedlikesandcomments{
+	margin-bottom: 4%;
+	margin-left: 3%;
+	font-size: 83%;
+}
+
 
