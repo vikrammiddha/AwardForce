@@ -7,7 +7,10 @@
 	on-swipe-down directive handles swip down event to show previous month
   -->
   <ion-content class="has-header pagebackground" >
-  		
+  	<ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>	
   	<div style="position:relative">
 
 	  	<div style="position:relative">
@@ -45,25 +48,26 @@
   						<img class="feedimage" ng-src="../img/blank.png"/>
   					</td>
   					<td style="vertical-align: middle;width:70%">
-  						<div class="feedtitle"><b>{{feed.Giver}}</b> awarded <b>{{feed.Taker}}</b></div>
+  						<div class="feedtitle"><b>{{feed.Giver__r.Name}}</b> awarded <b>{{feed.Taker__r.Name}}</b></div>
   					</td>
   				</tr>
 
   				<tr>
 	  				<td  colspan="2">
-	  					<div class="feeddate">{{feed.Time}}</div>
+	  					<div class="feeddate">{{feed.CreatedDate | date:'dd/MM/yyyy HH:mm:ss'}}</div>
 	  				</td>
   				</tr>
 
   				<tr>
   					<td colspan="2">
-  						<div class="feeddescription">{{feed.Description}}</div>
+  						<div class="feeddescription">{{feed.Feed_Body__c}}</div>
   					</td>
   				</tr>
 
   				<tr>
   					<td colspan="2">
-  						<div class="feedlikesandcomments">{{feed.LikesCount}} Likes      {{feed.CommentsCount}} Comments</div>
+  						<div class="feedlikesandcomments">{{feed.Feed_Likes__r.totalSize.length != null  ? feed.Feed_Likes__r.totalSize : "0"}} Likes      {{feed.Feed_Comments__r.totalSize === "" ? "0" : feed.Feed_Comments__r.totalSize}} Comments</div>
+            
   					</td>
   				</tr>
 
