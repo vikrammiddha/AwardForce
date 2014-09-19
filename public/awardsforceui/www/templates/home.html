@@ -66,16 +66,16 @@
 
   				<tr>
   					<td colspan="2">
-  						<div class="feedlikesandcomments">{{feed.Feed_Likes__r.totalSize.length != null  ? feed.Feed_Likes__r.totalSize : "0"}} Likes      {{feed.Feed_Comments__r.totalSize === "" ? "0" : feed.Feed_Comments__r.totalSize}} Comments</div>
+  						<div class="feedlikesandcomments">{{LikesCounterMap[feed.Id]}} Likes      {{feed.Feed_Comments__r.totalSize}} Comments</div>
             
   					</td>
   				</tr>
 
   			</table>
 
-  			<div style="padding-left:1%">
-  				<button style="width:49%" class="button icon-left ion-ios7-star-outline">Like</button>
-  				<button style="width:49%" class="button icon-left ion-ios7-chatboxes-outline">Comment</button>
+  			<div style="padding-left:1%;padding-bottom:1%">
+  				<button style="width:49%" class="button icon-left ion-ios7-star-outline" ng-class="{'button-positive' : LikesMap[feed.Id] === 'Unlike', 'button-light' : LikesMap[feed.Id] === 'Like'}" ng-click="likeButtonPressed(feed.Id)">{{LikesMap[feed.Id]}}</button>
+  				<button style="width:49%" class="button button-light icon-left ion-ios7-chatboxes-outline">Comment</button>
   			</div>
   			
   		</div>

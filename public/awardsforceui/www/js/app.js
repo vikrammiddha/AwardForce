@@ -51,5 +51,13 @@ angular.module('awards', ['ionic', 'home-controller'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 
-});
+})
+
+.config(['$httpProvider', function ($httpProvider) {
+  //Reset headers to avoid OPTIONS request (aka preflight)
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
+}]);
 
