@@ -9,11 +9,18 @@ sfdcFactory.factory('feedFactory',function($http){
 		        	callback(err,null);
 		    });
   		},
-  		deleteFeedLike:function(userinfo,feedId,callback){
-  			var headers = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
-  			var url = 'https://awardforce.secure.force.com/services/apexrest/awardfeeds?sfdcId=' + userinfo.sfdcId + '&feedId='+feedId ;
+  		createdeleteFeedLike:function(action,userinfo,feedId,callback){
+  			//var headers = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
+  			var url = 'https://awardforce.secure.force.com/services/apexrest/awardfeeds?sfdcId='+userinfo.sfdcId  + '&feedId='+feedId + '&action=null';
 
-  			$http.delete(url).success(function(result){
+  			$http.post(url).success(function(result){
+		        	callback(null,result);
+		        }).error(function(err){
+		        	callback(err,null);
+		    });
+  		},
+  		getToppers:function(callback){
+  			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds').success(function(result){
 		        	callback(null,result);
 		        }).error(function(err){
 		        	callback(err,null);

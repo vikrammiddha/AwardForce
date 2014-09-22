@@ -13,6 +13,24 @@ sfdcFactory.factory('feedStore',['feedFactory',function(feedFactory){
 				 		if(data === null || data === ''){
 				 			alert('Servers temporarily not available. Please try after sometime.');
 				 		}else{
+				 			console.log('===data1==' + JSON.stringify(data.fiList));
+		  					callback(data);
+				 		}
+				 		
+				 	}
+	  			});
+			},
+			getToppers:function(callback){
+				feedFactory.getToppers(function(err,data){
+				 	if(err) {
+				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
+				 		alert(errorMessage);
+				 		callback(null);
+				 	} else {
+				 		if(data === null || data === ''){
+				 			alert('Servers temporarily not available. Please try after sometime.');
+				 		}else{
+				 			console.log('===toppers data1==' + JSON.stringify(data));
 		  					callback(data);
 				 		}
 				 		
@@ -79,8 +97,24 @@ sfdcFactory.factory('likeStore',['feedFactory', function(feedFactory){
 					}
 					likesCountMap[value.Id] = likeCounter;
 				});
-				console.log('Map == ' + JSON.stringify(likesMap));
-				console.log('===LikesCounterMap==' + JSON.stringify(likesCountMap));
+				//console.log('Map == ' + JSON.stringify(likesMap));
+				//console.log('===LikesCounterMap==' + JSON.stringify(likesCountMap));
+			},
+			prepareCommentsCountMap:function(feeds){
+				angular.forEach(feeds, function(value, key) {	
+					var commentCounter = 0;
+					angular.forEach(value.Feed_Comments__r, function(v, k) {
+						
+						angular.forEach(v, function(vv, kk) {
+							commentCounter++;
+							
+						}); 
+					}); 
+					commentsCountMap[value.Id] = commentCounter;
+				});
+			},
+			getCommentsCountMap: function(){
+				return commentsCountMap;
 			},
 			getLikesMap: function(){
 				return likesMap;
@@ -94,9 +128,10 @@ sfdcFactory.factory('likeStore',['feedFactory', function(feedFactory){
 			setLikesCountMap: function(awardId, val){
 				likesCountMap[awardId] = val;
 			},
-			deleteLikeFromSFDC: function(UserInfo, feedId){
-				feedFactory.deleteFeedLike(UserInfo, feedId, function(err,data){
-				 	if(err) {
+			createdeleteLikeFromSFDC: function(action,UserInfo, feedId, done){
+				feedFactory.createdeleteFeedLike(action, UserInfo, feedId, function(err,data){
+					done();
+				 	if(err != null) {
 				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
 				 		alert(errorMessage);
 				 		

@@ -16,23 +16,23 @@
 	  	<div style="position:relative">
 	  		<img class="firstmedal" ng-src="../img/rank.png"/>
 	  		<span class="firstmedalnumber">1</span>
-	  		<img class="winnerimage winner1image" ng-src="../img/blank.png"/>
-	  		<span class="input-label winnername1">Vikas Malhotra</span>
+	  		<img class="winnerimage winner1image" ng-src="../img/{{Toppers[0].email}}.jpg" err-src="../img/blank.png"/>
+	  		<span class="input-label winnername1">{{Toppers[0].name}}</span>
 	  	</div>
 
 	  	<div style="position:relative">
 	  		<div style="display:inline-block; width:40%;margin-left: 10%;">
 	  			<img  class="secondmedal" ng-src="../img/rank.png"/>
 	  			<span class="secondmedalnumber">2</span>
-	  			<img class="winnerimage winner2image"  ng-src="../img/blank.png"/>
-	  			<span class="input-label winnername2">Chandar Shekhar Joshi</span>
+	  			<img class="winnerimage winner2image"  ng-src="../img/{{Toppers[1].email}}.jpg" err-src="../img/blank.png"/>
+	  			<span class="input-label winnername2">{{Toppers[1].name}}</span>
 	  		</div>
 
 	  		<div style="display:inline-block; width:49%">
 	  			<img  class="thirdmedal" ng-src="../img/rank.png"/>
 	  			<span class="thirdmedalnumber">3</span>
-	  			<img class="winnerimage winner3image"  ng-src="../img/blank.png"/>
-	  			<span class="input-label winnername3">Vikram Middha</span>
+	  			<img class="winnerimage winner3image"  ng-src="../img/{{Toppers[2].email}}.jpg" err-src="../img/blank.png"/>
+	  			<span class="input-label winnername3">{{Toppers[2].name}}</span>
 	  		</div>
 	
 		</div>
@@ -45,7 +45,7 @@
   			<table width="100%">
   				<tr>
   					<td style="width:20%;height:62px;">
-  						<img class="feedimage" ng-src="../img/blank.png"/>
+              <img class="feedimage" ng-src="../img/{{feed.Giver__r.Email}}.jpg" err-src="../img/blank.png"/>
   					</td>
   					<td style="vertical-align: middle;width:70%">
   						<div class="feedtitle"><b>{{feed.Giver__r.Name}}</b> awarded <b>{{feed.Taker__r.Name}}</b></div>
@@ -66,7 +66,7 @@
 
   				<tr>
   					<td colspan="2">
-  						<div class="feedlikesandcomments">{{LikesCounterMap[feed.Id]}} Likes      {{feed.Feed_Comments__r.totalSize}} Comments</div>
+  						<div class="feedlikesandcomments">{{LikesCounterMap[feed.Id]}} Likes      {{CommentsCounterMap[feed.Id]}} Comments</div>
             
   					</td>
   				</tr>
@@ -74,7 +74,7 @@
   			</table>
 
   			<div style="padding-left:1%;padding-bottom:1%">
-  				<button style="width:49%" class="button icon-left ion-ios7-star-outline" ng-class="{'button-positive' : LikesMap[feed.Id] === 'Unlike', 'button-light' : LikesMap[feed.Id] === 'Like'}" ng-click="likeButtonPressed(feed.Id)">{{LikesMap[feed.Id]}}</button>
+  				<button style="width:49%" class="button icon-left ion-ios7-star-outline" ng-class="{'button-positive' : LikesMap[feed.Id] === 'Unlike' || LikesMap[feed.Id] === 'Unliking..', 'button-light' : LikesMap[feed.Id] === 'Like'}" ng-click="likeButtonPressed(feed.Id)">{{LikesMap[feed.Id]}}</button>
   				<button style="width:49%" class="button button-light icon-left ion-ios7-chatboxes-outline">Comment</button>
   			</div>
   			
