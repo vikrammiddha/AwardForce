@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller'])
+angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'SigninAppModule'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -45,7 +45,13 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller']
       views: {
         'menuContent' :{
           templateUrl: "templates/home.html",
-          controller: "homeController"
+          controller: "homeController",
+          data: {
+            // This tells Auth0 that this state requires the user to be logged in.
+            // If the user isn't logged in and he tries to access this state
+            // he'll be redirected to the login page
+            requiresLogin: true
+          }
         }
       }
     })
@@ -60,11 +66,22 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller']
       }
     })
 
+    .state('app.login', {
+      url: "/login",
+      views: {
+        'menuContent' :{
+            templateUrl: "templates/login.html",
+            controller: "LoginCtrl"
+        }
+      }
+    });
+
     
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/login');
 
 })
+
 
 .config(['$httpProvider', function ($httpProvider) {
   //Reset headers to avoid OPTIONS request (aka preflight)
