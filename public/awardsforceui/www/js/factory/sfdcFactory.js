@@ -19,8 +19,27 @@ sfdcFactory.factory('feedFactory',function($http){
 		        	callback(err,null);
 		    });
   		},
+  		postComment:function(commentRequest, callback){
+  			console.log('===commentRequest===' + JSON.stringify(commentRequest));
+  			var url = 'https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=postComment&feedId='+commentRequest.feedId + '&createdBy='+commentRequest.createdBy + '&commentBody=' + commentRequest.commentBody;
+
+  			$http.post(url).success(function(result){
+		        	callback(null,result);
+		        }).error(function(err){
+		        	callback(err,null);
+		    });
+  		},
   		getToppers:function(callback){
   			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds').success(function(result){
+		        	callback(null,result);
+		        }).error(function(err){
+		        	callback(err,null);
+		    });
+  		},
+  		submitAward:function(giver,taker,comment, callback){
+  			var url = 'https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=submitAward&giver='+giver + '&taker='+taker + '&comment=' + comment;
+
+  			$http.post(url).success(function(result){
 		        	callback(null,result);
 		        }).error(function(err){
 		        	callback(err,null);
@@ -38,6 +57,13 @@ sfdcFactory.factory('userFactory',function($http){
 		    	sfdcId : "003w000001FM0Z5AAL"
 		    };
 		    callback(null, UserInfo);
+  		},
+  		getAllContacts:function(userId,callback){
+  			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=getAllContacts&id='+userId).success(function(result){
+		        	callback(null,result);
+		        }).error(function(err){
+		        	callback(err,null);
+		    });
   		}
 	}
 });

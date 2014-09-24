@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('awards', ['ionic', 'home-controller'])
+angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -46,6 +46,16 @@ angular.module('awards', ['ionic', 'home-controller'])
         'menuContent' :{
           templateUrl: "templates/home.html",
           controller: "homeController"
+        }
+      }
+    })
+
+    .state('app.profile', {
+      url: "/profile",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/userprofile.html",
+          controller: "userProfileController"
         }
       }
     })

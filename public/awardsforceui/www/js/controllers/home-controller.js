@@ -1,32 +1,90 @@
 angular.module('home-controller' , ['sfdcService','homeDirective'])
 
-.controller('homeController',[ 'feedStore', 'userStore', 'likeStore' ,'$scope', function(feedStore, userStore, likeStore ,$scope ,  $ionicModal, $ionicPopup , $timeout) {
+.controller('homeController',[ '$scope', '$ionicModal','feedStore', 'userStore', 'likeStore' ,function($scope ,$ionicModal, feedStore, userStore, likeStore) {
 
 	userStore.setUserInfo(function(data){
 		$scope.UserInfo = data;
 		console.log('==userinfo==' + data.sfdcId);
 	});
 
-	//feedStore.getToppers(function(data){
-		//$scope.toppers = data;
-	//});
+	$ionicModal.fromTemplateUrl('../../templates/giveAward.html', {
+    	scope: $scope,
+    	animation: 'slide-in-up'
+	  }).then(function(modal) {
+	     $scope.modal = modal; 
+	  });
 
+	$scope.allContacts = {};
+	  $scope.openModal = function() {
+	    
+		userStore.getAllContacts($scope.UserInfo.sfdcId,function(data){
+			$scope.allContacts = data.conList;
+			$scope.modal.show();
+			console.log('===all contacts===' + JSON.stringify(data));
+		});
+	  };
+
+	  $scope.closeModal = function() {
+	    $scope.modal.hide();
+	  };
+
+	$scope.submitAward = function(taker,comment){
+		console.log('---comment---' + comment);
+		feedStore.submitAward($scope.UserInfo.sfdcId,taker.Id,comment,function(){
+			feedStore.getAwardFeeds($scope.UserInfo,function(data){
+				$scope.Feeds = data.fiList;
+				$scope.Toppers = data.topperList;
+				likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
+				likeStore.prepareCommentsMap(data.fiList);
+				$scope.LikesMap = likeStore.getLikesMap();
+				$scope.LikesCounterMap = likeStore.getLikesCountMap();
+				$scope.CommentsCounterMap = likeStore.getCommentsCountMap();
+				$scope.CommentsMap = likeStore.getCommentsMap();
+				$scope.commentBody="";
+				$scope.selectedContact = "";	
+				$scope.closeModal();
+			});
+			
+		});
+	};
+
+	
+	 
 	feedStore.getAwardFeeds($scope.UserInfo,function(data){
 		$scope.Feeds = data.fiList;
 		$scope.Toppers = data.topperList;
 		likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
-		likeStore.prepareCommentsCountMap(data.fiList);
+		likeStore.prepareCommentsMap(data.fiList);
 	});
 
 	$scope.LikesMap = likeStore.getLikesMap();
 	$scope.LikesCounterMap = likeStore.getLikesCountMap();
 	$scope.CommentsCounterMap = likeStore.getCommentsCountMap();
+	$scope.CommentsMap = likeStore.getCommentsMap();
 
 	$scope.doRefresh = function() {
 		feedStore.getAwardFeeds($scope.UserInfo,function(data){
 			$scope.Feeds = data.fiList;	
 			$scope.$broadcast('scroll.refreshComplete');
 		});    
+	};
+
+	$scope.addComments = function(feedId){
+		
+		likeStore.setCommentsMap(feedId, 'show');
+		console.log('====after val==' + $scope.CommentsMap[feedId]);
+		$scope.CommentsMap = likeStore.getCommentsMap();
+	};
+
+	$scope.submitComment = function(feedId,commentBody){
+		//
+		var commentReq = {feedId:feedId, commentBody:commentBody, createdBy:$scope.UserInfo.sfdcId};
+		likeStore.setCommentsMap(feedId, 'processing');
+		likeStore.postComment(commentReq,function(){
+			likeStore.setCommentsMap(feedId, 'hide');
+			likeStore.setCommentsCountMap(feedId,$scope.CommentsCounterMap[feedId] + 1);
+			$scope.commentBody={};
+		});
 	};
 
 	$scope.likeButtonPressed = function(awardId){

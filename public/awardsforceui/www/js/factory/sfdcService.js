@@ -13,7 +13,7 @@ sfdcFactory.factory('feedStore',['feedFactory',function(feedFactory){
 				 		if(data === null || data === ''){
 				 			alert('Servers temporarily not available. Please try after sometime.');
 				 		}else{
-				 			console.log('===data1==' + JSON.stringify(data.fiList));
+				 			//console.log('===data1==' + JSON.stringify(data.fiList));
 		  					callback(data);
 				 		}
 				 		
@@ -30,7 +30,24 @@ sfdcFactory.factory('feedStore',['feedFactory',function(feedFactory){
 				 		if(data === null || data === ''){
 				 			alert('Servers temporarily not available. Please try after sometime.');
 				 		}else{
-				 			console.log('===toppers data1==' + JSON.stringify(data));
+				 			//console.log('===toppers data1==' + JSON.stringify(data));
+		  					callback(data);
+				 		}
+				 		
+				 	}
+	  			});
+			},
+			submitAward:function(giver,taker,comment,callback){
+				feedFactory.submitAward(giver,taker,comment, function(err,data){
+				 	if(err) {
+				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
+				 		alert(errorMessage);
+				 		callback(null);
+				 	} else {
+				 		if(data === null || data === ''){
+				 			alert('Servers temporarily not available. Please try after sometime.');
+				 		}else{
+				 			//console.log('===toppers data1==' + JSON.stringify(data));
 		  					callback(data);
 				 		}
 				 		
@@ -43,6 +60,7 @@ sfdcFactory.factory('feedStore',['feedFactory',function(feedFactory){
 sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 		
 		var UserInfo = {};
+		var AllContacts = {};
 
 		return {
 			setUserInfo: function(callback){
@@ -64,6 +82,23 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 			},
 			getUserInfo:function(){
 				return UserInfo;
+			},
+			getAllContacts:function(userId,callback){
+				userFactory.getAllContacts(userId,function(err,data){
+				 	if(err) {
+				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
+				 		alert(errorMessage);
+				 		callback(null);
+				 	} else {
+				 		if(data === null || data === ''){
+				 			alert('Servers temporarily not available. Please try after sometime.');
+				 		}else{
+				 			AllContacts = data;
+		  					callback(data);
+				 		}
+				 		
+				 	}
+	  			});
 			}
 		}
 }]);
@@ -73,6 +108,7 @@ sfdcFactory.factory('likeStore',['feedFactory', function(feedFactory){
 
 		var likesMap = {};
 		var likesCountMap = {};
+		var commentsMap = {};
 		var commentsCountMap = {};
 		
 		return {
@@ -100,7 +136,7 @@ sfdcFactory.factory('likeStore',['feedFactory', function(feedFactory){
 				//console.log('Map == ' + JSON.stringify(likesMap));
 				//console.log('===LikesCounterMap==' + JSON.stringify(likesCountMap));
 			},
-			prepareCommentsCountMap:function(feeds){
+			prepareCommentsMap:function(feeds){
 				angular.forEach(feeds, function(value, key) {	
 					var commentCounter = 0;
 					angular.forEach(value.Feed_Comments__r, function(v, k) {
@@ -111,10 +147,20 @@ sfdcFactory.factory('likeStore',['feedFactory', function(feedFactory){
 						}); 
 					}); 
 					commentsCountMap[value.Id] = commentCounter;
+					commentsMap[value.Id] = 'hide';
 				});
 			},
 			getCommentsCountMap: function(){
 				return commentsCountMap;
+			},
+			setCommentsCountMap: function(feedId,val){
+				commentsCountMap[feedId] = val;
+			},
+			getCommentsMap: function(){
+				return commentsMap;
+			},
+			setCommentsMap:function(feedId,value){
+				commentsMap[feedId] = value;
 			},
 			getLikesMap: function(){
 				return likesMap;
@@ -141,6 +187,23 @@ sfdcFactory.factory('likeStore',['feedFactory', function(feedFactory){
 				 		}else{
 				 			UserInfo = data;
 		  					
+				 		}
+				 		
+				 	}
+	  			});
+			},
+			postComment: function(commentRequest,done){
+				feedFactory.postComment(commentRequest, function(err,data){
+					done();
+				 	if(err != null) {
+				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
+				 		alert(errorMessage);
+				 		
+				 	} else {
+				 		if(data === null || data === ''){
+				 			alert('Servers temporarily not available. Please try after sometime.');
+				 		}else{
+				 			
 				 		}
 				 		
 				 	}

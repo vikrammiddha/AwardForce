@@ -1,6 +1,6 @@
 /* Empty. Add your own CSS if you like */
 .pagebackground{
-	background-color: bisque;
+	background-color: floralwhite;
 }
 
 .winnerimage{
@@ -123,6 +123,14 @@
 	margin-bottom: 4%;
 	margin-left: 3%;
 	font-size: 83%;
+	color:#888;
+}
+
+.bar.bar-assertive {
+	border-color: #4a87ee;
+	background-color: #4a87ee;
+	background-image: linear-gradient(0deg, #4a87ee, #4a87ee 50%, transparent 50%);
+	color: #fff;
 }
 
 
