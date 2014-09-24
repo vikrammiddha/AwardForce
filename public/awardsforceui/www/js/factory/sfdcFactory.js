@@ -11,7 +11,7 @@ sfdcFactory.factory('feedFactory',function($http){
   		},
   		createdeleteFeedLike:function(action,userinfo,feedId,callback){
   			//var headers = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
-  			var url = 'https://awardforce.secure.force.com/services/apexrest/awardfeeds?sfdcId='+userinfo.sfdcId  + '&feedId='+feedId + '&action=null';
+  			var url = 'https://awardforce.secure.force.com/services/apexrest/awardfeeds?sfdcId='+userinfo.sfdcId  + '&feedId='+feedId + '&action='+action;
 
   			$http.post(url).success(function(result){
 		        	callback(null,result);
@@ -49,14 +49,20 @@ sfdcFactory.factory('feedFactory',function($http){
 });
 
 sfdcFactory.factory('userFactory',function($http){
+	
 	return{
-		getUserInfo:function(callback){
-		    var UserInfo = {
+		getUserInfo:function(name,email,imageurl,callback){
+			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=setUserInfo&email=' + email + '&name=' + name + '&imageurl=' + imageurl).success(function(result){
+		        	//console.log('===1=== ' + JSON.stringify(result));
+		        	callback(null,result);
+		        }).error(function(err){
+		        	callback(err,null);
+		    });
+		    /*var UserInfo = {
 		    	name : "Vikram Middha",
 		    	email : "vikram.middha@makepositive.com",
 		    	sfdcId : "003w000001FM0Z5AAL"
-		    };
-		    callback(null, UserInfo);
+		    };*/
   		},
   		getAllContacts:function(userId,callback){
   			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=getAllContacts&id='+userId).success(function(result){

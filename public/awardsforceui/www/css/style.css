@@ -79,7 +79,7 @@
 .secondmedalnumber{
 	position: absolute;
 	left: 36%;
-	top: 9%;
+	top: 6%;
 	font-weight: bold;
 	color: crimson;
 }
@@ -87,7 +87,7 @@
 .thirdmedalnumber{
 	position: absolute;
 	left: 73%;
-	top: 9%;
+	top: 6%;
 	font-weight: bold;
 	color: crimson;
 }
@@ -133,4 +133,9 @@
 	color: #fff;
 }
 
-
+.awardButton{
+	margin-left: 2%;
+	margin-top: 10%;
+	width: 95%;
+	margin-right: 2%;
+}

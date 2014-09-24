@@ -1,12 +1,13 @@
 angular.module('home-controller' , ['sfdcService','homeDirective'])
 
-.controller('homeController',[ '$scope', '$ionicModal','feedStore', 'userStore', 'likeStore' ,function($scope ,$ionicModal, feedStore, userStore, likeStore) {
+.controller('homeController',[ '$scope', '$ionicModal','feedStore', 'userStore', 'likeStore' ,'$state',function($scope ,$ionicModal, feedStore, userStore, likeStore, $state) {
 
-	userStore.setUserInfo(function(data){
-		$scope.UserInfo = data;
-		console.log('==userinfo==' + data.sfdcId);
-	});
-
+	$scope.UserInfo = userStore.getUserInfo();
+	//console.log('---UserInfo---' + $scope.UserInfo.name);
+	if(angular.isUndefined($scope.UserInfo.name)){
+		$state.go('app.login');
+	}
+	
 	$ionicModal.fromTemplateUrl('../../templates/giveAward.html', {
     	scope: $scope,
     	animation: 'slide-in-up'
@@ -16,12 +17,8 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 
 	$scope.allContacts = {};
 	  $scope.openModal = function() {
-	    
-		userStore.getAllContacts($scope.UserInfo.sfdcId,function(data){
-			$scope.allContacts = data.conList;
-			$scope.modal.show();
-			console.log('===all contacts===' + JSON.stringify(data));
-		});
+	    $scope.modal.show();
+		
 	  };
 
 	  $scope.closeModal = function() {
@@ -29,7 +26,7 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	  };
 
 	$scope.submitAward = function(taker,comment){
-		console.log('---comment---' + comment);
+		
 		feedStore.submitAward($scope.UserInfo.sfdcId,taker.Id,comment,function(){
 			feedStore.getAwardFeeds($scope.UserInfo,function(data){
 				$scope.Feeds = data.fiList;
@@ -51,10 +48,16 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	
 	 
 	feedStore.getAwardFeeds($scope.UserInfo,function(data){
-		$scope.Feeds = data.fiList;
-		$scope.Toppers = data.topperList;
-		likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
-		likeStore.prepareCommentsMap(data.fiList);
+		userStore.getAllContacts($scope.UserInfo.sfdcId,function(data1){
+			$scope.allContacts = data1.conList;
+			//console.log('===all contacts===' + JSON.stringify(data1));
+			$scope.Feeds = data.fiList;
+			//console.log('===feeds===' + JSON.stringify(data));
+			$scope.Toppers = data.topperList;
+			likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
+			likeStore.prepareCommentsMap(data.fiList);
+		});
+		
 	});
 
 	$scope.LikesMap = likeStore.getLikesMap();
@@ -65,6 +68,7 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	$scope.doRefresh = function() {
 		feedStore.getAwardFeeds($scope.UserInfo,function(data){
 			$scope.Feeds = data.fiList;	
+			$scope.Toppers = data.topperList;
 			$scope.$broadcast('scroll.refreshComplete');
 		});    
 	};
@@ -110,19 +114,4 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 
 		//$scope.LikesMap.apply();
 	};
-}])
-
-.controller('LoginCtrl', function($scope, auth, $state) {
-  auth.signin({
-    popup: true,
-    // Make the widget non closeable
-    standalone: true,
-    // This asks for the refresh token
-    // So that the user never has to log in again
-    offline_mode: true
-  }, function() {
-    $state.go('app.home');
-  }, function(error) {
-    console.log("There was an error logging in", error);
-  });
-})
+}]);

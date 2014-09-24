@@ -63,8 +63,10 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 		var AllContacts = {};
 
 		return {
-			setUserInfo: function(callback){
-				userFactory.getUserInfo(function(err,data){
+			setUserInfo: function(userInfoData,callback){
+				UserInfo = userInfoData;
+				//console.log('==before user data 0==' + JSON.stringify(UserInfo));
+				userFactory.getUserInfo(userInfoData.name, userInfoData.email, userInfoData.imageurl, function(err,data){
 				 	if(err) {
 				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
 				 		alert(errorMessage);
@@ -73,8 +75,10 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 				 		if(data === null || data === ''){
 				 			alert('Servers temporarily not available. Please try after sometime.');
 				 		}else{
-				 			UserInfo = data;
-		  					callback(data);
+				 			//console.log('==before user data==' + JSON.stringify(UserInfo));
+				 			UserInfo['sfdcId'] = data.sfdcId;
+				 			console.log('==after user data==' + JSON.stringify(UserInfo));
+		  					callback(UserInfo);
 				 		}
 				 		
 				 	}
