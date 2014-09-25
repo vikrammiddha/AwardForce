@@ -1,14 +1,16 @@
-angular.module('directive.g+signin', []).
-  directive('googlePlusSignin', function () {
+angular.module('directive.g+signin', ['sfdcService']).
+  directive('googlePlusSignin', function ($rootScope) {
   var ending = /\.apps\.googleusercontent\.com$/;
 
   return {
     restrict: 'E',
     template: '<span class="g-signin"></span>',
+    scope:{
+      status:'='
+    },
     replace: true,
     link: function (scope, element, attrs) {
       attrs.clientid += (ending.test(attrs.clientid) ? '' : '.apps.googleusercontent.com');
-
       attrs.$set('data-clientid', attrs.clientid);
 
       // Some default values, based on prior versions of this directive
@@ -43,11 +45,14 @@ angular.module('directive.g+signin', []).
       })();
     }
   };
-}).run(['$window','$rootScope',function($window, $rootScope) {
+}).run(['$window','$rootScope', 'userStore',function($window, $rootScope, userStore) {
   $window.signinCallback = function (authResult) {
+    console.log(authResult);
     if (authResult && authResult.access_token){
+      userStore.setLoginStatus('success');
       $rootScope.$broadcast('event:google-plus-signin-success', authResult);
     } else {
+      userStore.setLoginStatus('failed');
       $rootScope.$broadcast('event:google-plus-signin-failure', authResult);
     }
   }; 

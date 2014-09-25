@@ -61,6 +61,7 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 		
 		var UserInfo = {};
 		var AllContacts = {};
+		var loginStatus = '';
 
 		return {
 			setUserInfo: function(userInfoData,callback){
@@ -103,6 +104,12 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 				 		
 				 	}
 	  			});
+			},
+			setLoginStatus:function(val){
+				loginStatus = val;
+			},
+			getLoginStatus:function(){
+				return loginStatus;
 			}
 		}
 }]);
