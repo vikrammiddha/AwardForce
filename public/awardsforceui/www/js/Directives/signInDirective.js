@@ -5,9 +5,6 @@ angular.module('directive.g+signin', ['sfdcService']).
   return {
     restrict: 'E',
     template: '<span class="g-signin"></span>',
-    scope:{
-      status:'='
-    },
     replace: true,
     link: function (scope, element, attrs) {
       attrs.clientid += (ending.test(attrs.clientid) ? '' : '.apps.googleusercontent.com');
@@ -49,10 +46,10 @@ angular.module('directive.g+signin', ['sfdcService']).
   $window.signinCallback = function (authResult) {
     console.log(authResult);
     if (authResult && authResult.access_token){
-      userStore.setLoginStatus('success');
+      //userStore.setLoginStatus('success');
       $rootScope.$broadcast('event:google-plus-signin-success', authResult);
     } else {
-      userStore.setLoginStatus('failed');
+      //userStore.setLoginStatus('failed');
       $rootScope.$broadcast('event:google-plus-signin-failure', authResult);
     }
   }; 
