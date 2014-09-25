@@ -9,14 +9,16 @@ angular.module('SigninAppModule', ['directive.g+signin','sfdcService'])
 
     $scope.status = 'success';
     $scope.$on('event:google-plus-signin-success', function (event, authResult) {
+      alert('login success');
       $scope.getUserInfo(); 
       // User successfully authorized the G+ App!
       console.log('Signed in!' + JSON.stringify(authResult));
     });
     $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
       // User has not authorized the G+ App!
-      //$scope.status = userStore.getLoginStatus();
-      //$scope.$apply();
+      alert('login failed');
+      $scope.status = userStore.getLoginStatus();
+      $scope.$apply();
       console.log('Not signed into Google Plus.' + $scope.status);
     });
 
@@ -28,7 +30,7 @@ angular.module('SigninAppModule', ['directive.g+signin','sfdcService'])
     //}
       var userInfoData = {name : userInfo.displayName, email: userInfo.emails[0].value, imageurl:encodeURIComponent(userInfo.image.url)};
       userStore.setUserInfo(userInfoData,function(data){
-          //$scope.status = userStore.getLoginStatus();
+          $scope.status = userStore.getLoginStatus();
           console.log('===user info is set now==' + $location.absUrl());
           $state.go("app.home");
       });
