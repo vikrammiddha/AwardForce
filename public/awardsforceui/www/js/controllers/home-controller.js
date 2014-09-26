@@ -2,12 +2,23 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 
 .controller('homeController',[ '$scope', '$ionicModal','feedStore', 'userStore', 'likeStore' ,'$state',function($scope ,$ionicModal, feedStore, userStore, likeStore, $state) {
 
+	/*var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com");
+    $scope.authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
+  		if(user === null){
+  			//$state.go('app.login');
+  		}else{	
+	     	//console.log('===error==' + JSON.stringify(user));
+	        //console.log('===displayname==' + user.displayName);
+	        console.log('===email==' + user.thirdPartyUserData.email);
+	        //console.log('===imageurl==' + user.thirdPartyUserData.picture);
+	    }
+    });*/
 	$scope.toppersLoaded = false;
 	$scope.UserInfo = userStore.getUserInfo();
 	//console.log('---UserInfo---' + $scope.UserInfo.name);
-	if(angular.isUndefined($scope.UserInfo.name)){
-		$state.go('app.login');
-	}
+	//if(angular.isUndefined($scope.UserInfo.name)){
+		//$state.go('app.login');
+	//}
 	
 	$ionicModal.fromTemplateUrl('../../templates/giveAward.html', {
     	scope: $scope,
@@ -51,9 +62,9 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	feedStore.getAwardFeeds($scope.UserInfo,function(data){
 		userStore.getAllContacts($scope.UserInfo.sfdcId,function(data1){
 			$scope.allContacts = data1.conList;
-			//console.log('===all contacts===' + JSON.stringify(data1));
+			console.log('===all contacts===' + JSON.stringify(data1));
 			$scope.Feeds = data.fiList;
-			//console.log('===feeds===' + JSON.stringify(data));
+			console.log('===feeds===' + JSON.stringify(data));
 			$scope.Toppers = data.topperList;
 			likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
 			likeStore.prepareCommentsMap(data.fiList);

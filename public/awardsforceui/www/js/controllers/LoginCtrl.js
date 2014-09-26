@@ -1,7 +1,35 @@
-angular.module('SigninAppModule', ['directive.g+signin','sfdcService'])
-  .controller('LoginCtrl', ['$scope', 'userStore', '$state','$location', function ($scope, userStore, $state, $location) {
+angular.module('SigninAppModule', ['sfdcService'])
+  .controller('LoginCtrl', ['$scope', 'userStore', '$state' ,function ($scope, userStore, $state) {
     
-    if($location.absUrl().indexOf('localhost') > 0){
+    //var stateChanged = false;
+    
+
+
+    $scope.login = function(){
+        var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com");
+        var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
+          console.log('===user 0 ===' + JSON.stringify(user));
+          if(user != null){
+            var userInfoData = {name : user.displayName, email: user.thirdPartyUserData.email, imageurl:encodeURIComponent(user.thirdPartyUserData.picture)};
+                //stateChanged = true;
+              userStore.setUserInfo(userInfoData,function(data){
+                console.log('===user info is set now==' + JSON.stringify(data));
+                $state.go("app.home");
+              });
+            
+            
+          } else{
+            
+          }
+        });
+        authClient.login('google');
+      //authClient.logout();
+    };
+
+    //$scope.logout = function(){
+       //$scope.authClient.logout();
+    //}
+    /*if($location.absUrl().indexOf('localhost') > 0){
       $scope.googleKey = '604173908288-3st0qn4jh42uks90u4di0u6ddbdo0lcl';
     }else{
       $scope.googleKey = '604173908288-5bt8enhg4k577drgsa0prrg1ih2pboek';
@@ -54,6 +82,6 @@ angular.module('SigninAppModule', ['directive.g+signin','sfdcService'])
                 'callback': $scope.userInfoCallback
             }
         );
-    };
+    };*/
 
   }]);
