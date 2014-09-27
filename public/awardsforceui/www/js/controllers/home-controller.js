@@ -20,7 +20,7 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 		//$state.go('app.login');
 	//}
 	
-	$ionicModal.fromTemplateUrl('../../templates/giveAward.html', {
+	$ionicModal.fromTemplateUrl('./templates/giveAward.html', {
     	scope: $scope,
     	animation: 'slide-in-up'
 	  }).then(function(modal) {

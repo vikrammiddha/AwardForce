@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'SigninAppModule'])
+angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'SigninAppModule','SignoutAppModule'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -72,6 +72,16 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
         'menuContent' :{
             templateUrl: "templates/login.html",
             controller: "LoginCtrl"
+        }
+      }
+    })
+
+    .state('app.logout', {
+      url: "/logout",
+      views: {
+        'menuContent' :{
+            templateUrl: "templates/logout.html",
+            controller: "LogoutCtrl"
         }
       }
     });

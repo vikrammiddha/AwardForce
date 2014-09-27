@@ -1,4 +1,4 @@
-<script src="../js/signInDirective.js"></script>
+
 
 <ion-view title="Award Force">
   <ion-nav-buttons side="left">
@@ -7,22 +7,21 @@
 
   <ion-content class="has-header pagebackground" >
   	
-  	<div ng-show="status === 'success'" style=";margin-left: 9%;margin-top: 52%;width:100%">
-  		<span style="color: #4a87ee;"> <strong> Loading. Please wait..... </strong><span>
-  		<div class="ion-loading-b"></div>
-  	</div>
   	
-  	<div ng-show="status === 'failed'"> 
-	  	<div style=";margin-left: 9%;margin-top: 52%;width:100%"><span style="color: #4a87ee;"> <strong> Login using your Makepositive Account </strong><span></div>
+  	<div ng-show="loggedInCheck === false"  style="margin-left: 9%;margin-top: 52%;width:100%">
+  		<div style="margin-left:40%" class="ion-loading-b"></div>
+  	</div>
+  	<div ng-show="loggedInCheck === true"> 
+	  	<div style="margin-top: 52%;width:100%"><span style="color: #4a87ee;"> 
+	  		<div style="margin-top: 10%;width:100%">
 
-	  	<div>
-			<div style="margin-top: 10%;margin-left: 26%;">
-
-				<google-plus-signin status="status" clientid="{{googleKey}}" ></google-plus-signin>
+				
+			  <button class="button button-positive awardButton" ng-click="login()">Login using Facebook</button>
 			  
 			  
 			</div>
-		</div>
+	  	</div>
+
 	</div>
 
   </ion-content>

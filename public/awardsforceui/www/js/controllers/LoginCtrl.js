@@ -1,28 +1,34 @@
 angular.module('SigninAppModule', ['sfdcService'])
-  .controller('LoginCtrl', ['$scope', 'userStore', '$state' ,function ($scope, userStore, $state) {
+  .controller('LoginCtrl', ['$scope', 'userStore', '$state' ,'$rootScope',function ($scope, userStore, $state,$rootScope) {
     
-    //var stateChanged = false;
-    
-
-
-    $scope.login = function(){
-        var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com");
-        var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
+    $scope.loggedInCheck = false;
+    var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com");
+          $rootScope.authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
           console.log('===user 0 ===' + JSON.stringify(user));
           if(user != null){
-            var userInfoData = {name : user.displayName, email: user.thirdPartyUserData.email, imageurl:encodeURIComponent(user.thirdPartyUserData.picture)};
+            var userInfoData = {name : user.displayName, email: user.thirdPartyUserData.email, imageurl:encodeURIComponent(user.thirdPartyUserData.picture.data.url)};
                 //stateChanged = true;
               userStore.setUserInfo(userInfoData,function(data){
                 console.log('===user info is set now==' + JSON.stringify(data));
+
                 $state.go("app.home");
               });
-            
+              
             
           } else{
-            
+            $scope.loggedInCheck = true;
+            $scope.$apply();
+            //authClient.login('google');
           }
         });
-        authClient.login('google');
+
+
+    $scope.login = function(){
+        $scope.loggedInCheck = false;
+        //$scope.$apply();
+        $rootScope.authClient.login('facebook',{scope: "email"});
+        
+        
       //authClient.logout();
     };
 
