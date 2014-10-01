@@ -9,11 +9,15 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         },
                         {
@@ -36,14 +40,17 @@
         }
     },
     "installed_plugins": {
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.ionicframework.awardsforceui814142"
+        "com.ionic.keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.myapp113591"
         },
         "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.ionicframework.awardsforceui814142"
+            "PACKAGE_NAME": "com.ionicframework.myapp113591"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.ionicframework.myapp113591"
         },
         "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.awardsforceui814142"
+            "PACKAGE_NAME": "com.ionicframework.myapp113591"
         }
     },
     "dependent_plugins": {}

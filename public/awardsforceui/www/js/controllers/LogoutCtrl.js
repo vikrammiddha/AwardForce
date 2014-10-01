@@ -1,9 +1,8 @@
 angular.module('SignoutAppModule', [])
-  .controller('LogoutCtrl', ['$scope', '$state','$rootScope','$window', function ($scope, $state, $rootScope,$window) {
+  .controller('LogoutCtrl', ['$scope', '$state','OpenFB', function ($scope, $state,OpenFB) {
     
-    $rootScope.authClient.logout();
+   	OpenFB.logout();
     $state.go('app.login');
-    //$window.open('https://mail.google.com/mail/u/0/?logout&hl=en');
   }]);
 
   
