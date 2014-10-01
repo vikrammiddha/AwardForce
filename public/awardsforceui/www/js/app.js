@@ -5,16 +5,21 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'openfb', 'SigninAppModule', 'SignoutAppModule'])
+angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'openfb', 'SigninAppModule', 'SignoutAppModule', 'pushmodule'])
 
 .run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
 
       OpenFB.init('1527683587467548');
 
       $ionicPlatform.ready(function () {
-          if (window.StatusBar) {
-              StatusBar.styleDefault();
+          if(window.cordova && window.cordova.plugins.Keyboard) {
+            //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           }
+          if(window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            //StatusBar.styleDefault();
+          }
+          ionic.Platform.fullScreen();
       });
 
       $rootScope.$on('$stateChangeStart', function(event, toState) {

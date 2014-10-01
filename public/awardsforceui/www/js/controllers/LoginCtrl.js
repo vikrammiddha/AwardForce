@@ -1,7 +1,26 @@
-angular.module('SigninAppModule', ['sfdcService'])
-  .controller('LoginCtrl', ['$scope', 'userStore', '$state' ,'OpenFB', function ($scope, userStore, $state,OpenFB) {
+angular.module('SigninAppModule', ['sfdcService','pushmodule'])
+  .controller('LoginCtrl', ['$scope', 'userStore', '$state' ,'OpenFB','push', function ($scope, userStore, $state,OpenFB, push) {
     
-    $scope.isLoginDone = false;
+    $scope.isLoginDone = true;
+
+    OpenFB.get('/me').success(function (user) {
+          var userInfoData = {name : user.name, email: user.email, imageurl:encodeURIComponent('https://graph.facebook.com/'+user.id+ '/picture?width=400&height=400')};
+    //stateChanged = true;
+          userStore.setUserInfo(userInfoData,function(data){
+            //$scope.isLoginDone  = true;
+            //$scope.$apply();
+            var result = push.registerPush(function (result) {
+              if (result.type === 'registration') {
+                alert('==device info===' + JSON.stringify(result));
+                $state.go("app.home");
+              }
+            });
+            
+          });
+      }).error(function(err){
+        $scope.isLoginDone = false;
+
+      });
 
     $scope.facebookLogin = function () {
           $scope.isLoginDone  = true;
@@ -13,7 +32,13 @@ angular.module('SigninAppModule', ['sfdcService'])
                       userStore.setUserInfo(userInfoData,function(data){
                         //$scope.isLoginDone  = true;
                         //$scope.$apply();
-                        $state.go("app.home");
+                        var result = push.registerPush(function (result) {
+                          if (result.type === 'registration') {
+                            alert('==device info===' + JSON.stringify(result));
+                            $state.go("app.home");
+                          }
+                        });
+                        
                       });
                   });
                 },
