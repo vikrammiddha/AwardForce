@@ -51,8 +51,8 @@ sfdcFactory.factory('feedFactory',function($http){
 sfdcFactory.factory('userFactory',function($http){
 	
 	return{
-		getUserInfo:function(name,email,imageurl,callback){
-			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=setUserInfo&email=' + email + '&name=' + name + '&imageurl=' + imageurl).success(function(result){
+		getUserInfo:function(name,email,imageurl,token,callback){
+			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=setUserInfo&email=' + email + '&name=' + name + '&imageurl=' + imageurl + '&token='+token).success(function(result){
 		        	console.log('===1=== ' + JSON.stringify(result));
 		        	callback(null,result);
 		        }).error(function(err){

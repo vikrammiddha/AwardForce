@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BF514E61-3793-4003-9710-2685F9298C5A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>myApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4EFE2B958ADA912B54C1E83B4FA7C47368D066C0</key>
+		<string>heroku.com:awardforce.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>public/awardsforceui/platforms/ios/myApp.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4EFE2B958ADA912B54C1E83B4FA7C47368D066C0</key>
+		<string>../../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>heroku.com:awardforce.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4EFE2B958ADA912B54C1E83B4FA7C47368D066C0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4EFE2B958ADA912B54C1E83B4FA7C47368D066C0</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4EFE2B958ADA912B54C1E83B4FA7C47368D066C0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>awardforce</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -5,21 +5,34 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'SigninAppModule','SignoutAppModule'])
+angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'openfb', 'SigninAppModule', 'SignoutAppModule', 'pushmodule'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
-})
+.run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
+
+      OpenFB.init('1527683587467548');
+
+      $ionicPlatform.ready(function () {
+          if(window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+          }
+          
+          //StatusBar.overlaysWebView( false );
+          //StatusBar.backgroundColorByName( “gray” );
+      });
+
+
+      $rootScope.$on('$stateChangeStart', function(event, toState) {
+          if (toState.name !== "app.login" && toState.name !== "app.logout" && !$window.sessionStorage['fbtoken']) {
+              $state.go('app.login');
+              event.preventDefault();
+          }
+      });
+
+      $rootScope.$on('OAuthException', function() {
+          $state.go('app.login');
+      });
+
+  })
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $httpProvider.defaults.useXDomain = true;

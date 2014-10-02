@@ -40,7 +40,7 @@ angular.module('directive.g+signin', ['sfdcService']).
       // Asynchronously load the G+ SDK.
       (function() {
         var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/client:plusone.js';
+        po.src = '../lib/googleAuth.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
       })();
     }

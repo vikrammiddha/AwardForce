@@ -1,31 +1,22 @@
+<ion-view title="AwardForce" hide-back-button="true" style="background: #1b5a83" hide-nav-bar="true">
+
+    <ion-content has-header="true" padding="true">
+
+        <div class="list list-inset"  style="background: #1b5a83">
+
+            <div class="item item-image" style="border:none;margin-top:50px;">
+                <img src="./img/sociogram.jpg"/>
+            </div>
+
+            <div ng-show="isLoginDone === true"  style="margin-top:25%;margin-left:50%"><div class="ion-loading-b" style="margin-left:0%"></div></div>
+            <button ng-show="isLoginDone === false" class="button button-block button-light" ng-click="facebookLogin()">
+                <i class="icon ion-social-facebook"></i>
+                &nbsp;Login with Facebook
+            </button>
 
 
-<ion-view title="Award Force">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+        </div>
 
-  <ion-content class="has-header pagebackground" >
-  	
-  	
-  	<div ng-show="loggedInCheck === false"  style="margin-left: 9%;margin-top: 52%;width:100%">
-  		<div style="margin-left:40%" class="ion-loading-b"></div>
-  	</div>
-  	<div ng-show="loggedInCheck === true"> 
-	  	<div style="margin-top: 52%;width:100%"><span style="color: #4a87ee;"> 
-	  		<div style="margin-top: 10%;width:100%">
-
-				
-			  <button class="button button-positive awardButton" ng-click="login()">Login using Facebook</button>
-			  
-			  
-			</div>
-	  	</div>
-
-	</div>
-
-  </ion-content>
+    </ion-content>
 
 </ion-view>
-
-

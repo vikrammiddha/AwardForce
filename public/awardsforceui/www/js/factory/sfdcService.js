@@ -67,7 +67,7 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 			setUserInfo: function(userInfoData,callback){
 				UserInfo = userInfoData;
 				//console.log('==before user data 0==' + JSON.stringify(UserInfo));
-				userFactory.getUserInfo(userInfoData.name, userInfoData.email, userInfoData.imageurl, function(err,data){
+				userFactory.getUserInfo(userInfoData.name, userInfoData.email, userInfoData.imageurl,userInfoData.token, userInfoData.device, function(err,data){
 				 	if(err) {
 				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
 				 		alert(errorMessage);
