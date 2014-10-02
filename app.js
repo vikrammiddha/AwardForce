@@ -16,7 +16,7 @@ options = {
 
 var service = new apn.connection(options);
 
-var tokens = ["994b1f0f812f7b044253bc990912de16bae79d0212640d676ae9dea2de0b9a93"];
+
 
 service.on('connected', function() {
     console.log("Connected");
@@ -45,12 +45,7 @@ service.on('socketError', console.error);
 
 function pushNotificationToMany() {
     console.log("Sending the same notification each of the devices with one call to pushNotification.");
-    var note = new apn.notification();
-    note.setAlertText("Vikram middha awarded Sonia Middha");
-    note.sound = "dong.aiff";
-    note.badge = 1;
 
-    service.pushNotification(note, tokens);
 }
 
 pushNotificationToMany();
@@ -75,14 +70,29 @@ app.get('/service', function(req, res) {
 
 app.post('/service/sendAPNS', function(req, res) {
 
-	    /*notification = new apns.Notification();
-		notification.payload = {"description" : "A good news !"};
-		notification.badge = 1;
-		notification.sound = "dong.aiff";
-		notification.alert = "Vikram Middha awarded Gulshan Middha !";
-		notification.device = new apns.Device("994b1f0f812f7b044253bc990912de16bae79d0212640d676ae9dea2de0b9a93");
+	var content = '';
 
-		connection.sendNotification(notification);
-		res.send('SENT'); // load the single view file (angular will handle the page changes on the front-end)*/
+   req.on('data', function (data) {
+      // Append data.
+      content += data;
+   });
+
+   req.on('end', function () {
+      // Assuming, we're receiving JSON, parse the string into a JSON object to return.
+	    var data = JSON.parse(content);
+	    var note = new apn.notification();
+	    note.setAlertText(data.alertText);
+	    note.sound = "dong.aiff";
+	    note.badge = data.badgeCount;
+
+	    var tokens = data.tokens;
+
+	    service.pushNotification(note, tokens);
+	    res.send('SENT');
+      
+   });
+
+
+	
 	
 });
