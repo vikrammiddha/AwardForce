@@ -67,7 +67,7 @@ angular.module('openfb', [])
             loginProcessed = false;
 
             logout();
-            //oauthRedirectURL = 'http://localhost:3000/oauthcallback.html';
+            //oauthRedirectURL = 'https://www.facebook.com/connect/login_success.html';
             // Check if an explicit oauthRedirectURL has been provided in init(). If not, infer the appropriate value
             if (!oauthRedirectURL) {
                 if (runningInCordova) {

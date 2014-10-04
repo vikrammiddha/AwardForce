@@ -9,15 +9,16 @@
 
     	<div class="card">
 		  <div class="item item-divider" style="text-align: center;">
-		    <select style="width:65%;" ng-model="selectedContact" ng-options="contact.Name for contact in allContacts">
+		    <select style="width:100%;" ng-model="selectedContact" ng-options="contact.Name for contact in allContacts">
 		    	<option value="">--choose contact-- </option>
 		    </select><br>
 		  </div>
 		  <div class="item item-text-wrap" style="text-align: center;">
-		    	<textarea ng-model="commentBody" placeholder="Comments" style="height:102px"></textarea>
+		    	<textarea ng-model="commentBody" placeholder="Comments" style="height:200px"></textarea>
 		  </div>
 		  <div class="item item-divider" style="text-align: center;">
-		    <button class="button button-block button-positive" ng-click="submitAward(selectedContact,commentBody)">
+		  	<div ng-show="isSubmitInProcess === true"><div class="ion-looping" style="margin-left:0%"></div></div>
+		    <button ng-show="isSubmitInProcess === false" class="button button-block button-positive" ng-click="submitAward(selectedContact,commentBody)">
 			  Submit
 			</button>
 		  </div>

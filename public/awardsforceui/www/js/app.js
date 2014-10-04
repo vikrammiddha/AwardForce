@@ -8,16 +8,25 @@
 angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'openfb', 'SigninAppModule', 'SignoutAppModule', 'pushmodule'])
 
 .run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
-      
+
       OpenFB.init('1527683587467548');
+
+      var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
+
+      if(iOS)
+        $rootScope.margintop = '20px';
+      else
+        $rootScope.margintop = '0px';
 
       $ionicPlatform.ready(function () {
           if(window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           }
           
-          //StatusBar.overlaysWebView( false );
-          //StatusBar.backgroundColorByName( “gray” );
+          if(window.StatusBar) {
+              // org.apache.cordova.statusbar required
+              StatusBar.styleDefault();
+          }
       });
 
 

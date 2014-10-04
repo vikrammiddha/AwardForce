@@ -29,7 +29,7 @@
 .winnername1{
 	width: 30%;
 	font-size: 12px;
-	margin-left: 35%;
+	margin-left: 30%;
 	text-align: left;
 }
 
@@ -37,14 +37,14 @@
 	width: 75%;
 	text-align: left;
 	font-size: 12px;
-	margin-left: 17%;
+	margin-left: 5%;
 }
 
 .winnername3 {
 	width: 67%;
 	text-align: left;
 	font-size: 12px;
-	margin-left: 3%;
+	margin-left: 0%;
 }
 
 .firstmedal{
@@ -100,8 +100,8 @@
 }
 
 .feedimage{
-	width:69%;
-	height:	100%;
+	width:73%;
+	height:	80%;
 	margin-left: 10%;
 	margin-top: 10%;
 	border-radius: 50%;
@@ -140,3 +140,7 @@
 	width: 95%;
 	margin-right: 2%;
 }
+
+
+
+

@@ -992,7 +992,7 @@ window.ionic.version = '1.0.0-beta.13';
      * also used for cloning when dest is an empty object
      * @param   {Object}    dest
      * @param   {Object}    src
-     * @param {Boolean} merge   do a merge
+     * @param	{Boolean}	merge		do a merge
      * @returns {Object}    dest
      */
     extend: function extend(dest, src, merge) {
@@ -1469,8 +1469,8 @@ window.ionic.version = '1.0.0-beta.13';
     name: 'hold',
     index: 10,
     defaults: {
-      hold_timeout  : 500,
-      hold_threshold  : 1
+      hold_timeout	: 500,
+      hold_threshold	: 1
     },
     timer: null,
     handler: function holdGesture(ev, inst) {
@@ -1516,11 +1516,11 @@ window.ionic.version = '1.0.0-beta.13';
     name: 'tap',
     index: 100,
     defaults: {
-      tap_max_touchtime : 250,
-      tap_max_distance  : 10,
-      tap_always      : true,
-      doubletap_distance  : 20,
-      doubletap_interval  : 300
+      tap_max_touchtime	: 250,
+      tap_max_distance	: 10,
+      tap_always			: true,
+      doubletap_distance	: 20,
+      doubletap_interval	: 300
     },
     handler: function tapGesture(ev, inst) {
       if(ev.eventType == ionic.Gestures.EVENT_END && ev.srcEvent.type != 'touchcancel') {

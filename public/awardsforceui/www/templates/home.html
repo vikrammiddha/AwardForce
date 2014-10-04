@@ -14,7 +14,7 @@
 
 
   	<div style="position:relative">
-    <div ng-show="toppersLoaded === false"  style="margin-top:25%;margin-left:50%"><div class="ion-loading-b" style="margin-left:0%"></div></div>
+    <div ng-show="toppersLoaded === false"  style="margin-top:25%;margin-left:50%"><div class="ion-looping" style="margin-left:0%"></div></div>
     <div ng-show="toppersLoaded === true">
 	  	<div style="position:relative">
 	  		<img class="firstmedal" ng-src="./img/rank.png"/>
@@ -34,7 +34,7 @@
 	  		<div style="display:inline-block; width:48%">
 	  			<img  class="thirdmedal" ng-src="./img/rank.png"/>
 	  			<span class="thirdmedalnumber">3</span>
-	  			<img class="winnerimage winner3image"  ng-src="{{Toppers[2].imageurl === null ? './img/blank.png' : Toppers[2].imageurl}}" err-src="./img/blank.png"/>
+	  			<img class="winnerimage winner3image"  ng-src="{{Toppers[2].imageurl === null ? './img/blank.png' : Toppers[2].imageurl}}" err-src="./img/blank.png"/><br/>
 	  			<span class="input-label winnername3"><strong>{{Toppers[2].name != null ? Toppers[2].name : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?'}}</strong></span>
 	  		</div>
 

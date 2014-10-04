@@ -14,7 +14,7 @@
     -->
     
   </head>
-  <body ng-app="awards" animation="slide-left-right-ios7">
+  <body ng-app="awards" animation="slide-left-right-ios7" style="margin-top : {{margintop}}">
     <!-- 
       The nav bar that will be updated as we navigate between views.
     -->
@@ -32,7 +32,11 @@
     <!-- ionic/angularjs js -->
     <script src="./lib/ionic/js/ionic.bundle.js"></script>
 
+
+
     <script src="./lib/push.js"></script>
+
+    <script src="./lib/angular-local-storage.js"></script>
 
     <script src="cordova.js"></script>
 
@@ -52,7 +56,9 @@
 
     <script src="./js/Directives/HomeDirectives.js"></script>
 
+    <script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'></script>
 
+    <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     

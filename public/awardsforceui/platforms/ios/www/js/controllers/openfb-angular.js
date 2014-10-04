@@ -67,7 +67,7 @@ angular.module('openfb', [])
             loginProcessed = false;
 
             logout();
-            oauthRedirectURL = 'https://www.facebook.com/connect/login_success.html';
+            //oauthRedirectURL = 'https://www.facebook.com/connect/login_success.html';
             // Check if an explicit oauthRedirectURL has been provided in init(). If not, infer the appropriate value
             if (!oauthRedirectURL) {
                 if (runningInCordova) {
@@ -75,6 +75,7 @@ angular.module('openfb', [])
                 } else {
                     // Trying to calculate oauthRedirectURL based on the current URL.
                     var index = document.location.href.indexOf('index.html');
+                    console.log('current url:' +  document.location.href);
                     if (index > 0) {
                         oauthRedirectURL = document.location.href.substring(0, index) + 'oauthcallback.html';
                     } else {
@@ -82,7 +83,7 @@ angular.module('openfb', [])
                     }
                 }
             }
-
+            console.log('redirect url:' +  oauthRedirectURL);
             loginWindow = window.open(FB_LOGIN_URL + '?client_id=' + fbAppId + '&redirect_uri=' + oauthRedirectURL +
                 '&response_type=token&display=popup&scope=' + fbScope, '_blank', 'location=no');
             // If the app is running in Cordova, listen to URL changes in the InAppBrowser until we get a URL with an access_token or an error

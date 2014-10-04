@@ -74,8 +74,8 @@ angular.module('SigninAppModule', ['sfdcService','pushmodule','LocalStorageModul
     //$state.go("app.home");
     
     $scope.facebookLogin = function () {
-          $scope.isLoginDone  = true;
-
+          //$scope.isLoginDone  = true;
+          console.log('cordovaApp : ' + cordovaApp);
           if(!cordovaApp){
             var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com/");
             $rootScope.authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
@@ -99,7 +99,7 @@ angular.module('SigninAppModule', ['sfdcService','pushmodule','LocalStorageModul
                   OpenFB.login('email,read_stream,publish_stream').then(
                     function () {
                         OpenFB.get('/me').success(function (user) {
-                            
+                            console.log('fetching user details..');
                             localStorageService.set('name', user.name);
                             localStorageService.set('email', user.email);
                             localStorageService.set('imageurl', encodeURIComponent('https://graph.facebook.com/'+user.id+ '/picture?width=400&height=400'));
@@ -121,6 +121,7 @@ angular.module('SigninAppModule', ['sfdcService','pushmodule','LocalStorageModul
                                 });
 
                             }else{
+                                console.log('fetching user details..');
                                 var userInfoData = {name : user.name, email: user.email, imageurl:encodeURIComponent('https://graph.facebook.com/'+user.id+ '/picture?width=400&height=400'),token:'',device:''};
                                 userStore.setUserInfo(userInfoData,function(data){
 

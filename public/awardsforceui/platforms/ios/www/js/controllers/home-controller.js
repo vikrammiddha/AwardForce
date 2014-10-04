@@ -62,9 +62,9 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	feedStore.getAwardFeeds($scope.UserInfo,function(data){
 		userStore.getAllContacts($scope.UserInfo.sfdcId,function(data1){
 			$scope.allContacts = data1.conList;
-			console.log('===all contacts===' + JSON.stringify(data1));
+			//console.log('===all contacts===' + JSON.stringify(data1));
 			$scope.Feeds = data.fiList;
-			console.log('===feeds===' + JSON.stringify(data));
+			//console.log('===feeds===' + JSON.stringify(data));
 			$scope.Toppers = data.topperList;
 			likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
 			likeStore.prepareCommentsMap(data.fiList);

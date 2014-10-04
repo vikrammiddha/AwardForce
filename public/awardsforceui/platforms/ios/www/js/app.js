@@ -11,25 +11,34 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
 
       OpenFB.init('1527683587467548');
 
+      var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
+
+      if(iOS)
+        $rootScope.margintop = '20px';
+      else
+        $rootScope.margintop = '0px';
+
       $ionicPlatform.ready(function () {
           if(window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           }
           
-          //StatusBar.overlaysWebView( false );
-          //StatusBar.backgroundColorByName( “gray” );
+          if(window.StatusBar) {
+              // org.apache.cordova.statusbar required
+              StatusBar.styleDefault();
+          }
       });
 
 
       $rootScope.$on('$stateChangeStart', function(event, toState) {
           if (toState.name !== "app.login" && toState.name !== "app.logout" && !$window.sessionStorage['fbtoken']) {
-              $state.go('app.login');
+              $state.go('app.home');
               event.preventDefault();
           }
       });
 
       $rootScope.$on('OAuthException', function() {
-          $state.go('app.login');
+          $state.go('app.home');
       });
 
   })
@@ -101,7 +110,7 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
 
     
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/app/home');
 
 })
 
