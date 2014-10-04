@@ -8,7 +8,7 @@
 angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'openfb', 'SigninAppModule', 'SignoutAppModule', 'pushmodule'])
 
 .run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
-
+      
       OpenFB.init('1527683587467548');
 
       $ionicPlatform.ready(function () {
