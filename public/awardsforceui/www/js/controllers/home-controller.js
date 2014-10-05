@@ -13,6 +13,7 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	        //console.log('===imageurl==' + user.thirdPartyUserData.picture);
 	    }
     });*/
+	console.log('In home controller');
 	$scope.toppersLoaded = false;
 	$scope.UserInfo = userStore.getUserInfo();
 	//console.log('---UserInfo---' + $scope.UserInfo.name);

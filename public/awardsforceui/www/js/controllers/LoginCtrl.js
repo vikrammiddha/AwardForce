@@ -1,5 +1,5 @@
 angular.module('SigninAppModule', ['sfdcService','pushmodule','LocalStorageModule'])
-  .controller('LoginCtrl', ['$scope', 'userStore', '$state' ,'OpenFB','push','$rootScope','localStorageService', function ($scope, userStore, $state,OpenFB, push, $rootScope, localStorageService) {
+  .controller('LoginCtrl', ['$scope', 'userStore', '$state' ,'OpenFB','push','$rootScope','localStorageService', '$timeout', function ($scope, userStore, $state,OpenFB, push, $rootScope, localStorageService, $timeout) {
     
     //console.log('Login process started ..');
     $scope.isLoginDone = true;
@@ -12,15 +12,20 @@ angular.module('SigninAppModule', ['sfdcService','pushmodule','LocalStorageModul
 
     var userId = localStorageService.get('email');
 
+
+
     console.log('userId : ' + userId);
     if(!angular.isUndefined(userId) && userId != null){
         var name = localStorageService.get('name');
         var email = localStorageService.get('email');
         var imageurl = localStorageService.get('imageurl');
         var userInfoData = {name : name, email: email, imageurl:imageurl,token:'',device:''};
+        //alert('email===' + JSON.stringify(userInfoData));
         userStore.setUserInfo(userInfoData,function(data){
-          console.log('got user info successfully . ');
-          $state.go("app.home");
+          console.log('got user info successfully . ' + JSON.stringify(data));
+          $state.go('app.home');
+          
+          //alert('got user info successfully 1. ');
         });
 
     }else{
@@ -74,7 +79,7 @@ angular.module('SigninAppModule', ['sfdcService','pushmodule','LocalStorageModul
     //$state.go("app.home");
     
     $scope.facebookLogin = function () {
-          //$scope.isLoginDone  = true;
+          $scope.isLoginDone  = true;
           console.log('cordovaApp : ' + cordovaApp);
           if(!cordovaApp){
             var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com/");

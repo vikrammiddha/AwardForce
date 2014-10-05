@@ -78,7 +78,7 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 				 		}else{
 				 			//console.log('==before user data==' + JSON.stringify(UserInfo));
 				 			UserInfo['sfdcId'] = data.sfdcId;
-				 			console.log('==after user data==' + JSON.stringify(UserInfo));
+				 			//alert('==after user data==' + JSON.stringify(UserInfo));
 		  					callback(UserInfo);
 				 		}
 				 		

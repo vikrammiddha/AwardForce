@@ -23,19 +23,16 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           }
           
-          if(window.StatusBar) {
-              // org.apache.cordova.statusbar required
-              StatusBar.styleDefault();
-          }
+          
       });
 
 
-      $rootScope.$on('$stateChangeStart', function(event, toState) {
+      /*$rootScope.$on('$stateChangeStart', function(event, toState) {
           if (toState.name !== "app.login" && toState.name !== "app.logout" && !$window.sessionStorage['fbtoken']) {
               $state.go('app.login');
               event.preventDefault();
           }
-      });
+      });*/
 
       $rootScope.$on('OAuthException', function() {
           $state.go('app.login');
@@ -67,13 +64,7 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
       views: {
         'menuContent' :{
           templateUrl: "templates/home.html",
-          controller: "homeController",
-          data: {
-            // This tells Auth0 that this state requires the user to be logged in.
-            // If the user isn't logged in and he tries to access this state
-            // he'll be redirected to the login page
-            requiresLogin: true
-          }
+          controller: "homeController"
         }
       }
     })

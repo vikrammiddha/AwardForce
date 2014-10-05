@@ -37,8 +37,9 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	    $scope.modal.hide();
 	  };
 
+	 $scope.isSubmitInProcess = false; 
 	$scope.submitAward = function(taker,comment){
-		
+		$scope.isSubmitInProcess = true;
 		feedStore.submitAward($scope.UserInfo.sfdcId,taker.Id,comment,function(){
 			feedStore.getAwardFeeds($scope.UserInfo,function(data){
 				$scope.Feeds = data.fiList;
@@ -50,7 +51,8 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 				$scope.CommentsCounterMap = likeStore.getCommentsCountMap();
 				$scope.CommentsMap = likeStore.getCommentsMap();
 				$scope.commentBody="";
-				$scope.selectedContact = "";	
+				$scope.selectedContact = "";
+				$scope.isSubmitInProcess = false;	
 				$scope.closeModal();
 			});
 			

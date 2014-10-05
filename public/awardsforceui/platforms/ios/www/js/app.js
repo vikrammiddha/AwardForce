@@ -32,13 +32,13 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
 
       $rootScope.$on('$stateChangeStart', function(event, toState) {
           if (toState.name !== "app.login" && toState.name !== "app.logout" && !$window.sessionStorage['fbtoken']) {
-              $state.go('app.home');
+              $state.go('app.login');
               event.preventDefault();
           }
       });
 
       $rootScope.$on('OAuthException', function() {
-          $state.go('app.home');
+          $state.go('app.login');
       });
 
   })
@@ -110,7 +110,7 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
 
     
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/login');
 
 })
 
