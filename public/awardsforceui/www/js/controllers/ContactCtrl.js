@@ -1,4 +1,4 @@
-angular.module('ContactModule', ['sfdcService'])
+angular.module('ContactModule', ['sfdcService','homeDirective'])
   .controller('ContactCtrl', ['$scope', '$state','localStorageService', '$location','userStore','$ionicModal','likeStore', 'feedStore','$rootScope',
   							function ($scope, $state, localStorageService ,$location, userStore,$ionicModal, likeStore, feedStore, $rootScope) {
     
@@ -18,6 +18,9 @@ angular.module('ContactModule', ['sfdcService'])
 		$scope.selContact.name = data.selectedContact.Name;
 		$scope.selContact.email = data.selectedContact.Email;
 		$scope.selContact.imageurl = data.selectedContact.Image_URL__c;	
+		if($scope.selContact.imageurl === '' || angular.isUndefined($scope.selContact.imageurl ) ){
+			$scope.selContact.imageurl = './img/blank.png';
+		}
 		//$scope.selContact.sfdcId = data.sfdcId;
 		$scope.Feeds = data.fiList;
 		//console.log('taker===' + $scope.selContact.sfdcId);
