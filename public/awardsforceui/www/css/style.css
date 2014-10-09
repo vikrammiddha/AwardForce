@@ -150,11 +150,11 @@ a:visited {
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:active {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:link {
@@ -196,4 +196,27 @@ a:active {
 .backButton-a{
 	margin-left: 2%;
 	margin-top: 2%;
+}
+
+.popover {
+	position: absolute;
+	top: 10%;
+	left: 40%;
+	z-index: 10;
+	display: block;
+	margin-top: 12px;
+	//margin-left: 0%;
+	height: 80%;
+	width: 75%;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+	opacity: 0.9;
+}
+
+.list {
+	position: relative;
+	padding-top: 0px; 
+	padding-bottom: 0px; 
+	padding-left: 0;
+	margin-bottom: 0px; 
 }

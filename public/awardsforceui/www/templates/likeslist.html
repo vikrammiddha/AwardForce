@@ -1,0 +1,19 @@
+<ion-popover-view>
+    <ion-header-bar>
+      <i class="icon ion-close-round"></i>
+    </ion-header-bar>
+    <ion-content>
+      
+
+      <div class="list" ng-repeat="like in FeedLikesList">
+
+	    <a class="item item-avatar" href="#">
+	      <img ng-src="{{like.Liked_By__r.Image_URL__c}}">
+	      <h2>{{like.Liked_By__r.Name}}</h2>
+	    </a>
+
+
+	</div>
+
+    </ion-content>
+  </ion-popover-view>

@@ -1,7 +1,7 @@
   <ion-modal-view>
   	<ion-header-bar>
 	    <div class="bar bar-header bar-positive">
-	      <div class="ion-chevron-left backButton-a" ng-click="closeModal()"></div> 	
+	    	<a style="color:white" class="button icon-left ion-close-round button-clear button-dark" ng-click="closeModal()"></a>	
 		  <h1 class="title">Give Award</h1>
 		</div>
 	</ion-header-bar>
@@ -9,9 +9,11 @@
 
     	<div class="card">
 		  <div class="item item-divider" style="text-align: center;">
-		    <select style="width:100%;" ng-model="selectedContact" ng-options="contact.Name for contact in allContacts">
+		    <select style="width:100%;margin-bottom: 4%;" ng-hide="showContactList === false" ng-model="selectedContact" ng-options="contact.Name for contact in allContacts">
 		    	<option value="">--choose contact-- </option>
-		    </select><br>
+		    </select>
+		    <h2 ng-hide="showContactList != false">To : {{selContact.name}}</h2>
+		    
 		  </div>
 		  <div class="item item-text-wrap" style="text-align: center;">
 		    	<textarea ng-model="commentBody" placeholder="Comments" style="height:200px"></textarea>

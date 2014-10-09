@@ -1,31 +1,29 @@
-<ion-view title="{{selectedContact.name}}">
-  <ion-nav-buttons side="left">
-     <div class="ion-chevron-left backButton" ng-click="$back()"></div>
-  </ion-nav-buttons>
+<ion-view title="{{selContact.name}}">
+  
 
-  <ion-content class="has-header pagebackground" >
-    <ion-refresher
-      pulling-text="Pull to refresh..."
-      on-refresh="doRefresh()">
-    </ion-refresher>
+  <ion-content  >
+    
 
     <div class="list card selectedContactImage" >
 
 
     <div class="item item-image">
-      <img  ng-src="{{selectedContact.imageurl}}" err-src="../img/blank.png"/>
+      <img  ng-src="{{selContact.imageurl}}" err-src="../img/blank.png"/>
     </div>
 
   </div>
-  <br/>
-  <br/>
   
+ 
+  
+  <button class="button button-positive awardButton" ng-click="openModal()">Give Award</button>
+
+  <br/><br/><br/>
   <span class="awardsRecGivenText"><b>Awards Received</b></span>
   <hr></hr>
 
   <div>
 
-      <div ng-repeat="feed in Feeds" ng-show="feed.Taker__r.Email === selectedContact.email" class="feedblock card">
+      <div ng-repeat="feed in Feeds" ng-show="feed.Taker__r.Email === selContact.email" class="feedblock card">
 
         <table width="100%">
           <tr>
@@ -45,7 +43,7 @@
 
           <tr>
             <td colspan="2" style="padding-bottom: 4%;">
-              <span class="feedlikesandcomments">{{LikesCounterMap[feed.Id]}} Likes      {{CommentsCounterMap[feed.Id]}} Comments </span> 
+              <span class="feedlikesandcomments"><a ng-click="showLikesWindow(feed.Id)">{{LikesCounterMap[feed.Id]}} Likes </a>     {{CommentsCounterMap[feed.Id]}} Comments </span> 
               <span class="feeddate" style="padding-left: 20%%;margin-bottom: 14%;">{{feed.CreatedDate | date:'dd/MM/yyyy HH:mm:ss'}}</span>
             
             </td>
@@ -79,7 +77,7 @@
 
   <div>
 
-      <div ng-repeat="feed in Feeds" ng-show="feed.Giver__r.Email === selectedContact.email" class="feedblock card">
+      <div ng-repeat="feed in Feeds" ng-show="feed.Giver__r.Email === selContact.email" class="feedblock card">
 
         <table width="100%">
           <tr>

@@ -1,6 +1,9 @@
 angular.module('home-controller' , ['sfdcService','homeDirective'])
 
-.controller('homeController',[ '$scope', '$ionicModal','feedStore', 'userStore', 'likeStore' ,'$state', '$rootScope', function($scope ,$ionicModal, feedStore, userStore, likeStore, $state, $rootScope) {
+.controller('homeController',[ '$scope', '$ionicModal','feedStore', 'userStore', 'likeStore' ,'$state', 
+								'$rootScope','$ionicNavBarDelegate', '$ionicPopover',
+								function($scope ,$ionicModal, feedStore, userStore, likeStore, 
+									$state, $rootScope, $ionicNavBarDelegate , $ionicPopover) {
 
 	/*var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com");
     $scope.authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
@@ -17,8 +20,8 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	$scope.toppersLoaded = false;
 	$scope.UserInfo = userStore.getUserInfo();
 
-	$rootScope.$back = function() { 
-	    window.history.back();
+	$rootScope.goBack = function() { 
+	    $ionicNavBarDelegate.back();
 	  };
 	//console.log('---UserInfo---' + $scope.UserInfo.name);
 	//if(angular.isUndefined($scope.UserInfo.name)){
@@ -42,7 +45,35 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	    $scope.modal.hide();
 	  };
 
-	 $scope.isSubmitInProcess = false; 
+	$scope.contactList = [];
+	$scope.showLikesWindow = function(feedId){
+		console.log('entered ' + feedId);
+	  	$scope.FeedLikesList = {};
+	  	for(i=0; i< $scope.Feeds.length; i++){
+	  		try{
+	  			if($scope.Feeds[i].Id === feedId)
+	  				$scope.FeedLikesList = $scope.Feeds[i].Feed_Likes__r.records;
+	  			//
+	  		}catch(e){
+
+	  		}
+	  	}
+	  	console.log('FeedLikesList : ' + JSON.stringify($scope.FeedLikesList));
+	  	if(!angular.isUndefined($scope.FeedLikesList)){
+	  		for(i=0; i < $scope.FeedLikesList.length; i++){
+	  			//console.log('row : ' + JSON.stringify($scope.FeedLikesList[i]));
+	  			var row = {name : $scope.FeedLikesList[i].Liked_By__r.Name, imageurl : $scope.FeedLikesList[i].Liked_By__r.Image_URL__c, id : $scope.FeedLikesList[i].Liked_By__r.Id};
+	  			
+	  			$scope.contactList.push(row);
+	  		}
+	  		console.log('$scope.contactList : ' + JSON.stringify($scope.contactList));
+	  		userStore.setContactList($scope.contactList);
+	  		$state.go('app.contactslist');
+	  	}
+	}
+
+
+	$scope.isSubmitInProcess = false; 
 	$scope.submitAward = function(taker,comment){
 		$scope.isSubmitInProcess = true;
 		feedStore.submitAward($scope.UserInfo.sfdcId,taker.Id,comment,function(){
@@ -90,6 +121,8 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 		feedStore.getAwardFeeds($scope.UserInfo,function(data){
 			$scope.Feeds = data.fiList;	
 			$scope.Toppers = data.topperList;
+			likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
+			likeStore.prepareCommentsMap(data.fiList);
 			$scope.$broadcast('scroll.refreshComplete');
 		});    
 	};
@@ -116,16 +149,24 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 		if(likeStore.getLikesMap()[awardId] === "Like"){
 			likeStore.setLikesMap(awardId, "Liking..");
 			likeStore.createdeleteLikeFromSFDC('create',$scope.UserInfo,awardId,function(){
-				likeStore.setLikesMap(awardId, "Unlike");
-				likeStore.setLikesCountMap(awardId, $scope.LikesCounterMap[awardId] + 1);
+				
+				feedStore.getAwardFeeds($scope.UserInfo,function(data){
+					$scope.Feeds = data.fiList;
+					likeStore.setLikesMap(awardId, "Unlike");
+					likeStore.setLikesCountMap(awardId, $scope.LikesCounterMap[awardId] + 1);
+				});
 				//$scope.LikesMap = likeStore.getLikesMap();
 				//$scope.LikesCounterMap = likeStore.getLikesCountMap();
 			});
 		}else{
 			likeStore.setLikesMap(awardId, "Unliking..");
 			likeStore.createdeleteLikeFromSFDC('delete',$scope.UserInfo,awardId,function(){
-				likeStore.setLikesMap(awardId, "Like");
-				likeStore.setLikesCountMap(awardId, $scope.LikesCounterMap[awardId] - 1);
+				feedStore.getAwardFeeds($scope.UserInfo,function(data){
+					$scope.Feeds = data.fiList;
+					likeStore.setLikesMap(awardId, "Like");
+					likeStore.setLikesCountMap(awardId, $scope.LikesCounterMap[awardId] - 1);
+				});
+				
 				//$scope.LikesMap = likeStore.getLikesMap();
 				//$scope.LikesCounterMap = likeStore.getLikesCountMap();
 			});

@@ -1,0 +1,22 @@
+<ion-view >
+
+
+   <!--
+	on-swipe-up directive handles swip up event to show next month
+	on-swipe-down directive handles swip down event to show previous month
+  -->
+  <ion-content class="has-header pagebackground" >
+
+    <div class="list" ng-repeat="contact in contactsList">
+
+      <a class="item item-avatar" ng-href="#/app/contact?sfdcId={{contact.id}}">
+        <img ng-src="{{contact.imageurl}}">
+        <h2 style= "text-align:center">{{contact.name}}</h2>
+      </a>
+
+    </div>
+
+
+  </ion-content>
+
+</ion-view>

@@ -62,6 +62,7 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 		var UserInfo = {};
 		var AllContacts = {};
 		var loginStatus = '';
+		var contactList = [];
 
 		return {
 			setUserInfo: function(userInfoData,callback){
@@ -104,6 +105,12 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 				 		
 				 	}
 	  			});
+			},
+			setContactList:function(conList){
+				contactList = conList;
+			},
+			getContactList:function(){
+				return contactList;
 			},
 			getSelectedContact:function(sfdcId, callback){
 				userFactory.getSelectedContact(sfdcId,function(err,data){
