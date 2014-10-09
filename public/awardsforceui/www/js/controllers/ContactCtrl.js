@@ -1,30 +1,38 @@
-angular.module('home-controller' , ['sfdcService','homeDirective'])
+angular.module('ContactModule', ['sfdcService'])
+  .controller('ContactCtrl', ['$scope', '$state','localStorageService', '$location','userStore','$ionicModal','likeStore', function ($scope, $state, localStorageService ,$location, userStore,$ionicModal, likeStore) {
+    
+    var sfdcId = ($location.search()).sfdcId;
+    $scope.selectedContact = {};
+    console.log('sfdcId :' + sfdcId);
 
-.controller('homeController',[ '$scope', '$ionicModal','feedStore', 'userStore', 'likeStore' ,'$state', '$rootScope', function($scope ,$ionicModal, feedStore, userStore, likeStore, $state, $rootScope) {
+    userStore.getSelectedContact(sfdcId,function(data){
+		//console.log(JSON.stringify(data))	
+		$scope.selectedContact.name = data.selectedContact.Name;
+		$scope.selectedContact.email = data.selectedContact.Email;
+		$scope.selectedContact.imageurl = data.selectedContact.Image_URL__c;	
+		$scope.sfdcId = data.sfdcId;
+		$scope.Feeds = data.fiList;
+		//console.log('===feeds===' + JSON.stringify(data));
+		likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
+		likeStore.prepareCommentsMap(data.fiList);
+	});
 
-	/*var myRef = new Firebase("https://brilliant-heat-9974.firebaseio.com");
-    $scope.authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
-  		if(user === null){
-  			//$state.go('app.login');
-  		}else{	
-	     	//console.log('===error==' + JSON.stringify(user));
-	        //console.log('===displayname==' + user.displayName);
-	        console.log('===email==' + user.thirdPartyUserData.email);
-	        //console.log('===imageurl==' + user.thirdPartyUserData.picture);
-	    }
-    });*/
-	console.log('In home controller');
-	$scope.toppersLoaded = false;
+    $scope.redirect = function(sfdcId){
+    	userStore.getSelectedContact(sfdcId,function(data){
+		//console.log(JSON.stringify(data))	
+			$scope.selectedContact.name = data.selectedContact.Name;
+			$scope.selectedContact.email = data.selectedContact.Email;
+			$scope.selectedContact.imageurl = data.selectedContact.Image_URL__c;	
+			$scope.sfdcId = data.sfdcId;
+			$scope.Feeds = data.fiList;
+			//console.log('===feeds===' + JSON.stringify(data));
+			likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
+			likeStore.prepareCommentsMap(data.fiList);
+		});
+    }
+
 	$scope.UserInfo = userStore.getUserInfo();
-
-	$rootScope.$back = function() { 
-	    window.history.back();
-	  };
-	//console.log('---UserInfo---' + $scope.UserInfo.name);
-	//if(angular.isUndefined($scope.UserInfo.name)){
-		//$state.go('app.login');
-	//}
-	
+		
 	$ionicModal.fromTemplateUrl('./templates/giveAward.html', {
     	scope: $scope,
     	animation: 'slide-in-up'
@@ -48,7 +56,6 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 		feedStore.submitAward($scope.UserInfo.sfdcId,taker.Id,comment,function(){
 			feedStore.getAwardFeeds($scope.UserInfo,function(data){
 				$scope.Feeds = data.fiList;
-				$scope.Toppers = data.topperList;
 				likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
 				likeStore.prepareCommentsMap(data.fiList);
 				$scope.LikesMap = likeStore.getLikesMap();
@@ -66,20 +73,6 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 
 	
 	 
-	feedStore.getAwardFeeds($scope.UserInfo,function(data){
-		userStore.getAllContacts($scope.UserInfo.sfdcId,function(data1){
-			$scope.allContacts = data1.conList;
-			//console.log('===all contacts===' + JSON.stringify(data1));
-			$scope.Feeds = data.fiList;
-			//console.log('===feeds===' + JSON.stringify(data));
-			$scope.Toppers = data.topperList;
-			likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
-			likeStore.prepareCommentsMap(data.fiList);
-			$scope.toppersLoaded = true;
-			
-		});
-		
-	});
 
 	$scope.LikesMap = likeStore.getLikesMap();
 	$scope.LikesCounterMap = likeStore.getLikesCountMap();
@@ -87,17 +80,25 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 	$scope.CommentsMap = likeStore.getCommentsMap();
 
 	$scope.doRefresh = function() {
-		feedStore.getAwardFeeds($scope.UserInfo,function(data){
-			$scope.Feeds = data.fiList;	
-			$scope.Toppers = data.topperList;
+		userStore.getSelectedContact(sfdcId,function(data){
+		//console.log(JSON.stringify(data))	
+			$scope.selectedContact.name = data.selectedContact.Name;
+			$scope.selectedContact.email = data.selectedContact.Email;
+			$scope.selectedContact.imageurl = data.selectedContact.Image_URL__c;
+			$scope.sfdcId = data.sfdcId	
+			$scope.Feeds = data.fiList;
+			//console.log('===feeds===' + JSON.stringify(data));
+			likeStore.prepareLikesMap($scope.UserInfo, data.fiList);	
+			likeStore.prepareCommentsMap(data.fiList);
 			$scope.$broadcast('scroll.refreshComplete');
-		});    
+		});
+		  
 	};
 
 	$scope.addComments = function(feedId){
 		
 		likeStore.setCommentsMap(feedId, 'show');
-		console.log('====after val==' + $scope.CommentsMap[feedId]);
+		//console.log('====after val==' + $scope.CommentsMap[feedId]);
 		$scope.CommentsMap = likeStore.getCommentsMap();
 	};
 
@@ -135,4 +136,7 @@ angular.module('home-controller' , ['sfdcService','homeDirective'])
 
 		//$scope.LikesMap.apply();
 	};
-}]);
+
+
+
+  }]);

@@ -1,0 +1,129 @@
+<ion-view title="{{selectedContact.name}}">
+  <ion-nav-buttons side="left">
+     <div class="ion-chevron-left backButton" ng-click="$back()"></div>
+  </ion-nav-buttons>
+
+  <ion-content class="has-header pagebackground" >
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
+    <div class="list card selectedContactImage" >
+
+
+    <div class="item item-image">
+      <img  ng-src="{{selectedContact.imageurl}}" err-src="../img/blank.png"/>
+    </div>
+
+  </div>
+  <br/>
+  <br/>
+  
+  <span class="awardsRecGivenText"><b>Awards Received</b></span>
+  <hr></hr>
+
+  <div>
+
+      <div ng-repeat="feed in Feeds" ng-show="feed.Taker__r.Email === selectedContact.email" class="feedblock card">
+
+        <table width="100%">
+          <tr>
+            <td style="width:20%;height:62px;">
+              <img class="feedimage" ng-src="{{feed.Giver__r.Image_URL__c}}" err-src="./img/blank.png"/>{{feed.Giver__r.Image_Url__c}}
+            </td>
+            <td style="vertical-align: middle;width:70%">
+              <div class="feedtitle"><a  ng-click='redirect(feed.Giver__r.Id)'><b>{{feed.Giver__r.Name}}</b></a> awarded <a ng-click='redirect(feed.Taker__r.Id)'><b>{{feed.Taker__r.Name}}</b></a></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="feeddescription">{{feed.Feed_Body__c}}</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2" style="padding-bottom: 4%;">
+              <span class="feedlikesandcomments">{{LikesCounterMap[feed.Id]}} Likes      {{CommentsCounterMap[feed.Id]}} Comments </span> 
+              <span class="feeddate" style="padding-left: 20%%;margin-bottom: 14%;">{{feed.CreatedDate | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+            
+            </td>
+          </tr>
+
+        </table>
+
+        <div style="padding-left:1%;padding-bottom:1%">
+          <button style="width:49%" class="button icon-left ion-thumbsup" ng-class="{'button-positive' : LikesMap[feed.Id] === 'Unlike' || LikesMap[feed.Id] === 'Unliking..', 'button-light' : LikesMap[feed.Id] === 'Like'}" ng-click="likeButtonPressed(feed.Id)">{{LikesMap[feed.Id]}}</button>
+          <button style="width:49%" class="button button-light icon-left ion-ios7-chatboxes-outline" ng-click="addComments(feed.Id)">Comment</button>
+        </div>
+
+        <div class="item item-input-inset" style="margin-left:1%;margin-top:1%;margin-right:1%;margin-bottom:1%" ng-show="CommentsMap[feed.Id] === 'show' || CommentsMap[feed.Id] === 'processing'">
+          <label class="item-input-wrapper">
+            <input type="text" placeholder="Enter your comment here" ng-model="comment">
+          </label>
+          <button class="button button-small" ng-click="submitComment(feed.Id,comment)" ng-hide="CommentsMap[feed.Id] === 'processing'">
+            Submit
+          </button><div class="ion-loading-b" ng-show="CommentsMap[feed.Id] === 'processing'"></div>
+        </div>
+        
+      </div>
+
+    </div>
+
+
+
+<br/><br/>
+<span class="awardsRecGivenText"><b>Awards Given</b></span>
+  <hr></hr>
+
+  <div>
+
+      <div ng-repeat="feed in Feeds" ng-show="feed.Giver__r.Email === selectedContact.email" class="feedblock card">
+
+        <table width="100%">
+          <tr>
+            <td style="width:20%;height:62px;">
+              <img class="feedimage" ng-src="{{feed.Giver__r.Image_URL__c}}" err-src="./img/blank.png"/>{{feed.Giver__r.Image_Url__c}}
+            </td>
+            <td style="vertical-align: middle;width:70%">
+              <div class="feedtitle"><a ng-href="#/app/contact?email={{feed.Giver__r.Email}}"><b>{{feed.Giver__r.Name}}</b></a> awarded <a ng-href="#/app/contact?email={{feed.Taker__r.Email}}"><b>{{feed.Taker__r.Name}}</b></a></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="feeddescription">{{feed.Feed_Body__c}}</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2" style="padding-bottom: 4%;">
+              <span class="feedlikesandcomments">{{LikesCounterMap[feed.Id]}} Likes      {{CommentsCounterMap[feed.Id]}} Comments </span> 
+              <span class="feeddate" style="padding-left: 20%%;margin-bottom: 14%;">{{feed.CreatedDate | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+            
+            </td>
+          </tr>
+
+        </table>
+
+        <div style="padding-left:1%;padding-bottom:1%">
+          <button style="width:49%" class="button icon-left ion-thumbsup" ng-class="{'button-positive' : LikesMap[feed.Id] === 'Unlike' || LikesMap[feed.Id] === 'Unliking..', 'button-light' : LikesMap[feed.Id] === 'Like'}" ng-click="likeButtonPressed(feed.Id)">{{LikesMap[feed.Id]}}</button>
+          <button style="width:49%" class="button button-light icon-left ion-ios7-chatboxes-outline" ng-click="addComments(feed.Id)">Comment</button>
+        </div>
+
+        <div class="item item-input-inset" style="margin-left:1%;margin-top:1%;margin-right:1%;margin-bottom:1%" ng-show="CommentsMap[feed.Id] === 'show' || CommentsMap[feed.Id] === 'processing'">
+          <label class="item-input-wrapper">
+            <input type="text" placeholder="Enter your comment here" ng-model="comment">
+          </label>
+          <button class="button button-small" ng-click="submitComment(feed.Id,comment)" ng-hide="CommentsMap[feed.Id] === 'processing'">
+            Submit
+          </button><div class="ion-loading-b" ng-show="CommentsMap[feed.Id] === 'processing'"></div>
+        </div>
+        
+      </div>
+
+    </div>
+  </ion-content>
+
+</ion-view>

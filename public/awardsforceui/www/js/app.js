@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'openfb', 'SigninAppModule', 'SignoutAppModule', 'pushmodule'])
+angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller', 'openfb', 'SigninAppModule', 'SignoutAppModule', 'pushmodule', 'ContactModule'])
 
 .run(function ($rootScope, $state, $ionicPlatform, $window, OpenFB) {
 
@@ -75,6 +75,16 @@ angular.module('awards', ['ionic', 'home-controller', 'user-profile-controller',
         'menuContent' :{
           templateUrl: "templates/userprofile.html",
           controller: "userProfileController"
+        }
+      }
+    })
+
+    .state('app.contact', {
+      url: "/contact",
+      views: {
+        'menuContent' :{
+            templateUrl: "templates/contact.html",
+            controller: "ContactCtrl"
         }
       }
     })

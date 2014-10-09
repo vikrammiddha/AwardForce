@@ -72,6 +72,13 @@ sfdcFactory.factory('userFactory',function($http){
 		        }).error(function(err){
 		        	callback(err,null);
 		    });
+  		},
+  		getSelectedContact:function(sfdcId, callback){
+  			$http.get('https://awardforce.secure.force.com/services/apexrest/awardfeeds?action=contactInfo&sfdcId='+sfdcId).success(function(result){
+		        	callback(null,result);
+		        }).error(function(err){
+		        	callback(err,null);
+		    });
   		}
 	}
 });

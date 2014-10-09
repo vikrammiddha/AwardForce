@@ -19,7 +19,7 @@
 	  	<div style="position:relative">
 	  		<img class="firstmedal" ng-src="./img/rank.png"/>
 	  		<span class="firstmedalnumber">1</span>
-	  		<img class="winnerimage winner1image" ng-src="{{Toppers[0].imageurl === null ? './img/blank.png' : Toppers[0].imageurl}}" err-src="./img/blank.png"/>
+	  		<a ng-href="#/app/contact?sfdcId={{Toppers[0].Id}}"><img class="winnerimage winner1image" ng-src="{{Toppers[0].imageurl === null ? './img/blank.png' : Toppers[0].imageurl}}" err-src="./img/blank.png"/></a>
 	  		<span class="input-label winnername1"><strong>{{Toppers[0].name != null ? Toppers[0].name : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?'}}</strong></span>
 	  	</div>
 
@@ -27,14 +27,14 @@
 	  		<div style="display:inline-block; width:40%;margin-left: 10%;">
 	  			<img  class="secondmedal" ng-src="./img/rank.png"/>
 	  			<span class="secondmedalnumber">2</span>
-	  			<img class="winnerimage winner2image"  ng-src="{{Toppers[1].imageurl === null ? './img/blank.png' : Toppers[1].imageurl}}" err-src="./img/blank.png"/>
+	  			<a ng-href="#/app/contact?sfdcId={{Toppers[1].Id}}"><img class="winnerimage winner2image"  ng-src="{{Toppers[1].imageurl === null ? './img/blank.png' : Toppers[1].imageurl}}" err-src="./img/blank.png"/></a>
 	  			<span class="input-label winnername2"><strong>{{Toppers[1].name != null ? Toppers[1].name : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?'}}</strong></span>
 	  		</div>
 
 	  		<div style="display:inline-block; width:48%">
 	  			<img  class="thirdmedal" ng-src="./img/rank.png"/>
 	  			<span class="thirdmedalnumber">3</span>
-	  			<img class="winnerimage winner3image"  ng-src="{{Toppers[2].imageurl === null ? './img/blank.png' : Toppers[2].imageurl}}" err-src="./img/blank.png"/><br/>
+	  			<a ng-href="#/app/contact?sfdcId={{Toppers[2].Id}}"><img class="winnerimage winner3image"  ng-src="{{Toppers[2].imageurl === null ? './img/blank.png' : Toppers[2].imageurl}}" err-src="./img/blank.png"/><br/></a>
 	  			<span class="input-label winnername3"><strong>{{Toppers[2].name != null ? Toppers[2].name : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?'}}</strong></span>
 	  		</div>
 
@@ -56,7 +56,7 @@
               <img class="feedimage" ng-src="{{feed.Giver__r.Image_URL__c}}" err-src="./img/blank.png"/>{{feed.Giver__r.Image_Url__c}}
   					</td>
   					<td style="vertical-align: middle;width:70%">
-  						<div class="feedtitle"><b>{{feed.Giver__r.Name}}</b> awarded <b>{{feed.Taker__r.Name}}</b></div>
+  						<div class="feedtitle"><a ng-href="#/app/contact?sfdcId={{feed.Giver__r.Id}}"><b>{{feed.Giver__r.Name}}</b></a> awarded <a ng-href="#/app/contact?sfdcId={{feed.Taker__r.Id}}"><b>{{feed.Taker__r.Name}}</b></a></div>
   					</td>
   				</tr>
 

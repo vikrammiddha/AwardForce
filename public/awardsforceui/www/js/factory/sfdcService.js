@@ -105,6 +105,22 @@ sfdcFactory.factory('userStore',['userFactory',function(userFactory){
 				 	}
 	  			});
 			},
+			getSelectedContact:function(sfdcId, callback){
+				userFactory.getSelectedContact(sfdcId,function(err,data){
+				 	if(err) {
+				 		var errorMessage = err.message || 'Servers temporarily not available. Please try after sometime..';
+				 		alert(errorMessage);
+				 		callback(null);
+				 	} else {
+				 		if(data === null || data === ''){
+				 			alert('Servers temporarily not available. Please try after sometime.');
+				 		}else{
+		  					callback(data);
+				 		}
+				 		
+				 	}
+	  			});
+			},
 			setLoginStatus:function(val){
 				loginStatus = val;
 			},
@@ -130,8 +146,8 @@ sfdcFactory.factory('likeStore',['feedFactory', function(feedFactory){
 						
 						angular.forEach(v, function(vv, kk) {
 							likeCounter++;
-							console.log('Feed Likes == ' + JSON.stringify(vv.Liked_By__c) + '==' + JSON.stringify(kk));
-							console.log('liked By == ' + vv.Liked_By__c + '===' + UserInfo.sfdcId );
+							//console.log('Feed Likes == ' + JSON.stringify(vv.Liked_By__c) + '==' + JSON.stringify(kk));
+							//console.log('liked By == ' + vv.Liked_By__c + '===' + UserInfo.sfdcId );
 							if(vv.Liked_By__c === UserInfo.sfdcId){
 								likesMap[value.Id] = "Unlike";
 								
